@@ -13,7 +13,7 @@ Line Break <br>
 > Quote  
 `quoted code`
 
-Hex `#a903fc`
+Hex `#A903FC`
 RGB `rgb(169, 3, 252)`
 HSL `hsl(280, 99%, 99%)`
 
