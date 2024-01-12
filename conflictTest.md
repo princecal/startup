@@ -1,1 +1,1 @@
-This is a test file. The brown fox jumps over the lazy dog.
+This is a test file. The red fox jumps over the lazy dog.
