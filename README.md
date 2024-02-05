@@ -23,3 +23,11 @@ Have you ever wanted to know what games are worth buying at a glance? The game r
 **DB/Login** - Stores users, active auth tokens, games, and votes in a persistently stored database. Can't vote without a valid auth token.  
 **Websocket** - When a user submits a rating the application will notify other users that the vote was made.  
 **React** - The website will be ported to the React framework.  
+
+## HTML Deliverable
+For this deliverable, I built the frame of my application with HTML.   
+**Text** - Added text showing each game, their name, and the rating assigned to them.  
+**Images** - Added placeholder images for representing game logos.  
+**Database/Login** - There are placeholders for each service call in rate and login.  
+**3rd Party API** - Contains placeholder for an api call.  
+**Websockets** - Contains placeholder for websocket implementation on the left column.  
