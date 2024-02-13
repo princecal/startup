@@ -6,15 +6,18 @@
 }
 .left{
     text-align: left;
-    justify-content: left;   
+    justify-content: left; 
+    flex: 1;  
 }
 .center{
     text-align: center;
     justify-content: center; 
+    flex: 3.5; 
 }
 .right{
     text-align: right;
     justify-content: right;
+    flex: 1; 
 }
 body{
     display: inline-flex;
@@ -26,19 +29,25 @@ button,select{
 header{
     text-align: center;
     width:100%;
-    margin-top: 0;
-    padding:0;
+    position: top;
+    left: 0;
+    right: 0;
+    top: 0;
     background-color: rgb(19, 18, 18);
 }
 .column{
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    margin: 20px;
-    padding:10px;
 }
 .row{
+    align-items: center;
     display: flex;
     flex-direction: row;
+}
+td,th{
+    border:solid black;
 }
 footer{
     text-align: center;
