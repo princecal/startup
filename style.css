@@ -6,7 +6,7 @@
     
 }
 .left{
-    flex: 2;  
+    flex: 1;  
     
 }
 .center{
@@ -24,7 +24,7 @@
     background-color: rgb(193, 193, 29);
 }
 .right{
-    flex: 2; 
+    flex: 1.5; 
 }
 main{
     display: flex;
@@ -61,10 +61,23 @@ body{
     flex-wrap: wrap-reverse;
     flex-direction: row;
     width: 100%;
+    align-self: center;
 }
 td,th{
     border:solid black;
     text-align: center;
+}
+.table_l{
+    width: "50%";
+}
+.table_r{
+    width: "25%";
+}
+.table_c{
+    width: "25%";
+}
+table{
+    width:100%;
 }
 footer{
     text-align: center;
