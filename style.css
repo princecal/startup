@@ -7,10 +7,12 @@
 }
 .left{
     flex: 2;  
+    
 }
 .center{
     background-color: rgb(43, 38, 38);
     flex: 3.5; 
+    
 }
 .good{
     background-color: green;
@@ -22,23 +24,25 @@
     background-color: rgb(193, 193, 29);
 }
 .right{
-    
     flex: 2; 
 }
 main{
     display: flex;
     background-color: rgb(35, 32, 32);
-    height: 80vh;
-    margin-bottom: 50px;
+    
+    margin-bottom: 60px;
+    
+    padding:2px
 }
 button,select{
     background-color: rgb(38, 36, 36);
+    flex-wrap:nowrap
 }
 header{
     text-align: center;
     background-color: rgb(4, 4, 203);
-    padding:0;
-    margin:0;
+    padding:5px;
+    margin-bottom:0;
 }
 body{
     background-color: rgb(35, 32, 32);
@@ -54,7 +58,7 @@ body{
 .row{
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     flex-direction: row;
     width: 100%;
 }
