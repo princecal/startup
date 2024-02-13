@@ -1,20 +1,36 @@
 *{
     font-family:Arial;
-    background-color: rgb(38, 36, 36);
+    
     color: white;
-    text-align: center;
+    
 }
 .column{
     border: 5px solid black;
 }
-#left{
+.left{
+    text-align: left;
+    justify-content: left;   
+}
+.center{
     text-align: center;
-    justify-content: left;
-    
+    justify-content: center; 
 }
 body{
     display: inline-flex;
+    background-color: rgb(38, 36, 36);
+}
+button{
+    background-color: rgb(38, 36, 36);
+}
+.row{
+    display:inline-flex;
+    flex-direction: row-reverse;
 }
 footer{
     text-align: center;
+    background-color: rgb(19, 18, 18);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
