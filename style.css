@@ -1,23 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
 *{
-    font-family:Arial;
+    font-family:'Play';
     
     color: white;
     
 }
 .left{
-    text-align: left;
-    justify-content: left; 
-    flex: 1;  
+    
+    flex: 2;  
 }
 .center{
-    text-align: center;
-    justify-content: center; 
+    
     flex: 3.5; 
 }
 .right{
-    text-align: right;
-    justify-content: right;
-    flex: 1; 
+    
+    flex: 2; 
 }
 body{
     display: inline-flex;
@@ -28,11 +26,6 @@ button,select{
 }
 header{
     text-align: center;
-    width:100%;
-    position: top;
-    left: 0;
-    right: 0;
-    top: 0;
     background-color: rgb(19, 18, 18);
 }
 .column{
@@ -40,6 +33,7 @@ header{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    
 }
 .row{
     align-items: center;
