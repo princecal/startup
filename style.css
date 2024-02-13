@@ -15,16 +15,33 @@
     text-align: center;
     justify-content: center; 
 }
+.right{
+    text-align: right;
+    justify-content: right;
+}
 body{
     display: inline-flex;
     background-color: rgb(38, 36, 36);
 }
-button{
+button,select{
     background-color: rgb(38, 36, 36);
+}
+header{
+    text-align: center;
+    width:100%;
+    margin-top: 0;
+    padding:0;
+    background-color: rgb(19, 18, 18);
+}
+.column{
+    display: inline-flex;
+    flex-direction: column;
+    margin: 20px;
+    padding:10px;
 }
 .row{
     display:inline-flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 footer{
     text-align: center;
