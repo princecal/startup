@@ -6,30 +6,46 @@
     
 }
 .left{
-    
     flex: 2;  
 }
 .center{
-    
+    background-color: rgb(43, 38, 38);
     flex: 3.5; 
+}
+.good{
+    background-color: green;
+}
+.bad{
+    background-color: red;
+}
+.medium{
+    background-color: rgb(193, 193, 29);
 }
 .right{
     
     flex: 2; 
 }
-body{
-    display: inline-flex;
-    background-color: rgb(38, 36, 36);
+main{
+    display: flex;
+    background-color: rgb(35, 32, 32);
+    height: 80vh;
+    margin-bottom: 50px;
 }
 button,select{
     background-color: rgb(38, 36, 36);
 }
 header{
     text-align: center;
-    background-color: rgb(19, 18, 18);
+    background-color: rgb(4, 4, 203);
+    padding:0;
+    margin:0;
+}
+body{
+    background-color: rgb(35, 32, 32);
 }
 .column{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -38,11 +54,13 @@ header{
 .row{
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     width: 100%;
 }
 td,th{
     border:solid black;
+    text-align: center;
 }
 footer{
     text-align: center;
@@ -51,4 +69,5 @@ footer{
     left: 0;
     right: 0;
     bottom: 0;
+    
 }
