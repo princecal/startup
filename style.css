@@ -4,9 +4,6 @@
     color: white;
     
 }
-.column{
-    border: 5px solid black;
-}
 .left{
     text-align: left;
     justify-content: left;   
@@ -40,13 +37,13 @@ header{
     padding:10px;
 }
 .row{
-    display:inline-flex;
+    display: flex;
     flex-direction: row;
 }
 footer{
     text-align: center;
     background-color: rgb(19, 18, 18);
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
