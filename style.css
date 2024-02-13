@@ -2,6 +2,18 @@
     font-family:Arial;
     background-color: rgb(38, 36, 36);
     color: white;
+    text-align: center;
+}
+.column{
+    border: 5px solid black;
+}
+#left{
+    text-align: center;
+    justify-content: left;
+    
+}
+body{
+    display: inline-flex;
 }
 footer{
     text-align: center;
