@@ -12,7 +12,7 @@
 .center{
     background-color: rgb(43, 38, 38);
     flex: 3.5; 
-    
+    padding-top:5px;
     
 }
 .good{
@@ -91,7 +91,7 @@ footer{
 }
 @media screen and (min-width: 705px) {
     .center{
-        padding-bottom: 120px;
+        padding-bottom: 130px;
     }
   }
   @media screen and (max-width: 705px) {
