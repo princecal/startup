@@ -31,3 +31,17 @@ For this deliverable, I built the frame of my application with HTML.
 **Database/Login** - There are placeholders for each service call in rate and login.  
 **3rd Party API** - Contains placeholder for an api call.  
 **Websockets** - Contains placeholder for websocket implementation on the left column.  
+
+## CSS Deliverable  
+For this deliverable, I rebuilt my application to work with Flexbox and styled the application with CSS.  
+#Prerequisites  
+**Simon CSS** - 
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete
+#CSS Requirements  
+**Header, Footer, and Main Content Body** - Complete  
+**Responsive Design** - Complete  
+**Application Elements** - Complete
+**Application Text Content** - Complete
+**Images** - Complete
