@@ -40,8 +40,8 @@ For this deliverable, I rebuilt my application to work with Flexbox and styled t
 **Readme Update** - Complete  
 **Git Commits** - Complete  
 ### CSS Requirements  
-**Header, Footer, and Main Content Body** - Complete  
-**Responsive Design** - Complete  
-**Application Elements** - Complete  
-**Application Text Content** - Complete  
-**Images** - Complete
+**Header, Footer, and Main Content Body** - Styled Header, footer, and main body with proper CSS design. The footer is sticky to allow for a bigger main table.  
+**Responsive Design** - Uses Flexbox to create a responsive design, and uses media queries for smaller screens.   
+**Application Elements** - Application elements have been properly styled to stick out from the background, and buttons implement bootstrap buttons.  
+**Application Text Content** - Text has been styled white to account for the dark mode design.  
+**Images** - Are displayed in table format.
