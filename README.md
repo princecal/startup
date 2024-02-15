@@ -35,7 +35,7 @@ For this deliverable, I built the frame of my application with HTML.
 ## CSS Deliverable  
 For this deliverable, I rebuilt my application to work with Flexbox and styled the application with CSS.  
 ### Prerequisites  
-**Simon CSS** - 
+**Simon CSS** - Complete  
 **Github Link** - Complete  
 **Readme Update** - Complete  
 **Git Commits** - Complete  
