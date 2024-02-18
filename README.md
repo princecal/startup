@@ -31,3 +31,17 @@ For this deliverable, I built the frame of my application with HTML.
 **Database/Login** - There are placeholders for each service call in rate and login.  
 **3rd Party API** - Contains placeholder for an api call.  
 **Websockets** - Contains placeholder for websocket implementation on the left column.  
+
+## CSS Deliverable  
+For this deliverable, I rebuilt my application to work with Flexbox and styled the application with CSS.  
+### Prerequisites  
+**Simon CSS** - Complete  
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete  
+### CSS Requirements  
+**Header, Footer, and Main Content Body** - Styled Header, footer, and main body with proper CSS design. The footer is sticky to allow for a bigger main table.  
+**Responsive Design** - Uses Flexbox to create a responsive design, and uses media queries for smaller screens.   
+**Application Elements** - Application elements have been properly styled to stick out from the background, and buttons implement bootstrap buttons.  
+**Application Text Content** - Text has been styled white to account for the dark mode design.  
+**Images** - Are displayed in table format.
