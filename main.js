@@ -7,6 +7,7 @@ function submitReview(){
 }
 
 function run(){
+    clear();
     for(let i = 1; i < 5; i++){
         const scoreid = i + "score";
         const reviewid = i + "review";
@@ -125,6 +126,13 @@ function addScore(x,y){
     localStorage.setItem(reviewid,Number(localStorage.getItem(reviewid)) + 1);
     
 }
+function updateScore(x,y){
+    //changes score of game x by value y without changed how many reviews have been submitted
+}
 function authCheck(x){
     //check validity of authtoken x
+}
+function clear(){
+    //Remove later
+    localStorage.clear();
 }
