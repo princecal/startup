@@ -71,6 +71,17 @@ body{
     width: 100%;
     align-self: center;
 }
+.rowButton{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    align-self: center;
+}
+.button{
+    width: 100px;
+    margin: 5px;
+}
 td,th{
     border:solid black;
     text-align: center;

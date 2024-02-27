@@ -86,10 +86,11 @@
                 <label for="password">Password: </label>
                 <input type="password" id="password" placeholder="Enter Password">
             </p>
-            <div class = "row">
-                <button type="submit" class ="btn btn-primary column" onclick="login()">Login</button>
-                <button type="submit" class = "btn btn-danger column" onclick="register()">Register</button>
+            <div class = "rowButton">
+                <button id = "login" type="submit" class ="btn btn-primary column button" onclick="login()">Login</button>
+                <button id = "register" type="submit" class = "btn btn-danger column button" onclick="register()">Register</button>
             </div>
+            <button id = "logout" type="submit" class = "btn btn-danger column button" onclick="logout()">Logout</button>
     
         </div>
     </div>

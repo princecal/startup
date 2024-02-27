@@ -37,9 +37,11 @@ function login(){
     document.getElementById("password").value = "";
     if(!username || !password){
         const x = "Either your Username or Password are not filled in. Please try again.";
-        showMessage(x);
+        showMessage(x,'r');
     } else {
         //check login database, send needed message depending on pass/fail. If pass change welcome guest to welcome username, and add logout button
+        showMessage("Login Successful",'g');
+        showLogout();
     }
 }
 function showLogout(){
@@ -49,17 +51,26 @@ function hideLogout(){
 
 }
 function register(){
-
+    //registers user, logs them in
+    showLogout();
 }
 let messageCount = 0;
 let nextMessageNumber = 0;
-function showMessage(x){
+function showMessage(x,y){
     const parent = document.getElementById("messages");
     const childNode = document.createElement("div");
     const text = document.createTextNode(x);
     childNode.appendChild(text);
     const id = "message" + nextMessageNumber;
     childNode.id = id;
+    switch (y) {
+        case 'r':
+            childNode.style.color = "red";
+            break;
+        case 'g':
+            childNode.style.color = "green";
+            break; 
+    }
     parent.appendChild(childNode);
     messageCount++;
     nextMessageNumber++;
@@ -75,7 +86,8 @@ function showMessage(x){
     
 }
 function logout(){
-
+    //Logs out user, deletes auth token
+    hideLogout();
 }
 function getAverage(x){
     const scoreid = x + "score";
