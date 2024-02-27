@@ -1,39 +1,22 @@
 function submitReview(){
-    const game = document.getElementById("").selectedIndex + 1;
-    const score = document.getElementById("").selectedIndex;
+    const game = document.getElementById("gameSelect").selectedIndex + 1;
+    const score = document.getElementById("scoreSelect").selectedIndex;
     //insert login validation
     addScore(game,score);
     changeScore(game);
 }
 function run(){
-    if(localStorage.getItem("1score") === null){
-        localStorage.setItem("1score", 0);
+    for(let i = 1; i < 5; i++){
+        const scoreid = i + "score";
+        const reviewid = i + "review";
+        if(localStorage.getItem("scoreid") === null){
+            localStorage.setItem("scoreid", 0);
+        }
+        if(localStorage.getItem("reviewid") === null){
+            localStorage.setItem("reviewid", 0);
+        }
+        changeScore(i);
     }
-    if(localStorage.getItem("1review") === null){
-        localStorage.setItem("1review", 0);
-    }
-    if(localStorage.getItem("2score") === null){
-        localStorage.setItem("2score", 0);
-    }
-    if(localStorage.getItem("2review") === null){
-        localStorage.setItem("2review", 0);
-    }
-    if(localStorage.getItem("3score") === null){
-        localStorage.setItem("3score", 0);
-    }
-    if(localStorage.getItem("3review") === null){
-        localStorage.setItem("3review", 0);
-    }
-    if(localStorage.getItem("4score") === null){
-        localStorage.setItem("4score", 0);
-    }
-    if(localStorage.getItem("4review") === null){
-        localStorage.setItem("4review", 0);
-    }
-    changeScore(1);
-    changeScore(2);
-    changeScore(3);
-    changeScore(4);
 }
 function changeScore(game){
     const average = parseFloat(getAverage(game).toFixed(1));
