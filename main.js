@@ -5,6 +5,7 @@ function submitReview(){
     addScore(game,score);
     changeScore(game);
 }
+
 function run(){
     for(let i = 1; i < 5; i++){
         const scoreid = i + "score";
@@ -107,8 +108,8 @@ function logout(){
 function getAverage(x){
     const scoreid = x + "score";
     const reviewid = x + "review";
-    const score = number(localStorage.getItem(scoreid));
-    const reviews = number(localStorage.getItem(reviewid));
+    const score = Number(localStorage.getItem(scoreid));
+    const reviews = Number(localStorage.getItem(reviewid));
     if(reviews === 0){
         return 0;
     }
@@ -120,8 +121,8 @@ function getDifference(x,y,z){
 function addScore(x,y){
     const scoreid = x + "score";
     const reviewid = x + "review";
-    localStorage.setItem(scoreid,number(localStorage.setItemItem(scoreid)) + y);
-    localStorage.setItem(reviewid,number(localStorage.setItemItem(reviewid)) + y);
+    localStorage.setItem(scoreid,Number(localStorage.getItem(scoreid)) + y);
+    localStorage.setItem(reviewid,Number(localStorage.getItem(reviewid)) + 1);
     
 }
 function authCheck(x){
