@@ -59,6 +59,10 @@ body{
     flex-direction: column;
     
 }
+#messages{
+    display: flex;
+    flex-direction: column-reverse;
+}
 .row{
     align-items: center;
     display: flex;

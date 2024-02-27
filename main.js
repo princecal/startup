@@ -38,8 +38,27 @@ function hideLogout(){
 function register(){
 
 }
+let messageCount = 0;
+let nextMessageNumber = 0;
 function showMessage(x){
-
+    const parent = document.getElementById("messages");
+    const childNode = document.createAttribute('p');
+    const id = "message" + nextMessageNumber;
+    childNode.setAttribute('id',id);
+    childNode.textContent = x;
+    parent.parentNode.appendChild(childNode);
+    messageCount++;
+    nextMessageNumber++;
+    if (nextMessageNumber > 4){
+        nextMessageNumber = 0;
+    }
+    if(messageCount > 4){
+        const idToDelete = "message" + nextMessageNumber
+        var toDelete = document.getElementById(idToDelete);
+        toDelete.remove();
+        messageCount--;
+    }
+    
 }
 function logout(){
 
