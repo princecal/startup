@@ -39,16 +39,30 @@ function login(){
         const x = "Either your Username or Password are not filled in. Please try again.";
         showMessage(x,'r');
     } else {
-        //check login database, send needed message depending on pass/fail. If pass change welcome guest to welcome username, and add logout button
+        //check login database, send needed message depending on pass/fail.
         showMessage("Login Successful",'g');
-        showLogout();
+        showLogout(username);
     }
 }
-function showLogout(){
-
+function showLogout(x){
+    document.getElementById("welcome").textContent = "Welcome " + x + "!";
+    document.getElementById("username").hidden = true;
+    document.getElementById("userLabel").hidden = true;
+    document.getElementById("password").hidden = true;
+    document.getElementById("passLabel").hidden = true;
+    document.getElementById("login").hidden = true;
+    document.getElementById("register").hidden = true;
+    document.getElementById("logout").hidden = false;
 }
 function hideLogout(){
-
+    document.getElementById("welcome").textContent = "Welcome Guest!";
+    document.getElementById("username").hidden = false;
+    document.getElementById("userLabel").hidden = false;
+    document.getElementById("password").hidden = false;
+    document.getElementById("passLabel").hidden = false;
+    document.getElementById("login").hidden = false;
+    document.getElementById("register").hidden = false;
+    document.getElementById("logout").hidden = true;
 }
 function register(){
     //registers user, logs them in
@@ -87,6 +101,7 @@ function showMessage(x,y){
 }
 function logout(){
     //Logs out user, deletes auth token
+    showMessage("Logout Successful",'g')
     hideLogout();
 }
 function getAverage(x){

@@ -79,18 +79,18 @@
         <div class = "right column">
             <h2 id = "welcome">Welcome Guest!</h2>
             <p>
-                <label for="username">Username: </label>
+                <label id = "userLabel" for="username">Username: </label>
                 <input type="username" id="username" placeholder="Enter Username">
             </p>
             <p>
-                <label for="password">Password: </label>
+                <label id = "passLabel" for="password">Password: </label>
                 <input type="password" id="password" placeholder="Enter Password">
             </p>
             <div class = "rowButton">
                 <button id = "login" type="submit" class ="btn btn-primary column button" onclick="login()">Login</button>
                 <button id = "register" type="submit" class = "btn btn-danger column button" onclick="register()">Register</button>
             </div>
-            <button id = "logout" type="submit" class = "btn btn-danger column button" onclick="logout()">Logout</button>
+            <button hidden = true id = "logout" type="submit" class = "btn btn-danger column button" onclick="logout()">Logout</button>
     
         </div>
     </div>
