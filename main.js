@@ -7,6 +7,32 @@ function submitReview(){
     const id = "game" + game;
     changeScore(average,id);
 }
+function run(){
+    if(localStorage.getItem("1score") === null){
+        localStorage.setItem("1score", 0);
+    }
+    if(localStorage.getItem("1review") === null){
+        localStorage.setItem("1review", 0);
+    }
+    if(localStorage.getItem("2score") === null){
+        localStorage.setItem("2score", 0);
+    }
+    if(localStorage.getItem("2review") === null){
+        localStorage.setItem("2review", 0);
+    }
+    if(localStorage.getItem("3score") === null){
+        localStorage.setItem("3score", 0);
+    }
+    if(localStorage.getItem("3review") === null){
+        localStorage.setItem("3review", 0);
+    }
+    if(localStorage.getItem("4score") === null){
+        localStorage.setItem("4score", 0);
+    }
+    if(localStorage.getItem("4review") === null){
+        localStorage.setItem("4review", 0);
+    }
+}
 function changeScore(average,id){
     if(average >= 7){
         document.getElementById(id).className = "good";
@@ -64,7 +90,14 @@ function logout(){
 
 }
 function getAverage(x){
-    //gets average for x games scores.
+    const scoreid = x + "score";
+    const reviewid = x + "reviews";
+    const score = localStorage.getItem(scoreid);
+    const reviews = localStorage.getItem(reviewid);;
+    if(reviews === 0){
+        return 0;
+    }
+    return score/reviews;
 }
 function getDifference(x,y,z){
     //gets difference between a user x's old review of game y and new review with score z

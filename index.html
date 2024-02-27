@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src = "main.js"></script>
     </head>
-  <body>
+  <body onload = "run()">
     <header><h1>Welcome to Simplified Game Reviews!</h1></header>
   <main>
     <div class = "row">
@@ -80,7 +80,7 @@
         </table>
         </div>
         <div class = "right column">
-            <h2>Welcome Guest!</h2>
+            <h2 id = "welcome">Welcome Guest!</h2>
             <p>
                 <label for="username">Username: </label>
                 <input type="username" id="username" placeholder="Enter Username">
