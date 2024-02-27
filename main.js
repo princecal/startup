@@ -117,6 +117,9 @@ function getAverage(x){
     return score/reviews;
 }
 function getDifference(x,y,z){
+    const reviewid = x + "review" + y;
+    const old = Number(localStorage.getItem(reviewid));
+    return z - old;
     //gets difference between a user x's old review of game y and new review with score z
 }
 function addScore(x,y){
@@ -127,7 +130,8 @@ function addScore(x,y){
     
 }
 function updateScore(x,y){
-    //changes score of game x by value y without changed how many reviews have been submitted
+    const scoreid = x + "score";
+    localStorage.setItem(scoreid,Number(localStorage.getItem(scoreid)) + y);
 }
 function authCheck(x){
     //check validity of authtoken x
