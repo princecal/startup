@@ -1,5 +1,21 @@
 function submitReview(){
-
+    const game = document.getElementById("").selectedIndex + 1;
+    const score = document.getElementById("").selectedIndex;
+    //insert login validation
+    //insert adding score to database
+    const average = parseFloat(getAverage(game).toFixed(1));
+    const id = "game" + game;
+    changeScore(average,id);
+}
+function changeScore(average,id){
+    if(average >= 7){
+        document.getElementById(id).className = "good";
+     } else if(average >= 4){
+         document.getElementById(id).className = "medium";
+     } else {
+         document.getElementById(id).className = "bad";
+     }
+     document.getElementById(id).textContent = average + "/10"
 }
 function login(){
     const username = document.getElementById("username").value;
@@ -13,6 +29,12 @@ function login(){
         //check login database, send needed message depending on pass/fail. If pass change welcome guest to welcome username, and add logout button
     }
 }
+function showLogout(){
+
+}
+function hideLogout(){
+
+}
 function register(){
 
 }
@@ -20,5 +42,17 @@ function showMessage(x){
 
 }
 function logout(){
-    
+
+}
+function getAverage(x){
+    //gets average for x games scores.
+}
+function getDifference(x,y,z){
+    //gets difference between a user x's old review of game y and new review with score z
+}
+function addScore(x,y){
+    //adds x score to game y
+}
+function authCheck(x){
+    //check validity of authtoken x
 }
