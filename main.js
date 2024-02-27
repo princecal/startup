@@ -3,9 +3,7 @@ function submitReview(){
     const score = document.getElementById("").selectedIndex;
     //insert login validation
     //insert adding score to database
-    const average = parseFloat(getAverage(game).toFixed(1));
-    const id = "game" + game;
-    changeScore(average,id);
+    changeScore(game);
 }
 function run(){
     if(localStorage.getItem("1score") === null){
@@ -32,8 +30,14 @@ function run(){
     if(localStorage.getItem("4review") === null){
         localStorage.setItem("4review", 0);
     }
+    changeScore(1);
+    changeScore(2);
+    changeScore(3);
+    changeScore(4);
 }
-function changeScore(average,id){
+function changeScore(game){
+    const average = parseFloat(getAverage(game).toFixed(1));
+    const id = "game" + game;
     if(average >= 7){
         document.getElementById(id).className = "good";
      } else if(average >= 4){
