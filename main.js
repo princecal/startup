@@ -2,7 +2,7 @@ function submitReview(){
     const game = document.getElementById("").selectedIndex + 1;
     const score = document.getElementById("").selectedIndex;
     //insert login validation
-    //insert adding score to database
+    addScore(game,score);
     changeScore(game);
 }
 function run(){
@@ -95,9 +95,9 @@ function logout(){
 }
 function getAverage(x){
     const scoreid = x + "score";
-    const reviewid = x + "reviews";
+    const reviewid = x + "review";
     const score = localStorage.getItem(scoreid);
-    const reviews = localStorage.getItem(reviewid);;
+    const reviews = localStorage.getItem(reviewid);
     if(reviews === 0){
         return 0;
     }
@@ -107,7 +107,11 @@ function getDifference(x,y,z){
     //gets difference between a user x's old review of game y and new review with score z
 }
 function addScore(x,y){
-    //adds x score to game y
+    const scoreid = x + "score";
+    const reviewid = x + "review";
+    localStorage.setItem(scoreid,number(localStorage.setItemItem(scoreid)) + y);
+    localStorage.setItem(reviewid,number(localStorage.setItemItem(reviewid)) + y);
+    
 }
 function authCheck(x){
     //check validity of authtoken x
