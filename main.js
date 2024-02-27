@@ -55,11 +55,12 @@ let messageCount = 0;
 let nextMessageNumber = 0;
 function showMessage(x){
     const parent = document.getElementById("messages");
-    const childNode = document.createAttribute('p');
+    const childNode = document.createElement("div");
+    const text = document.createTextNode(x);
+    childNode.appendChild(text);
     const id = "message" + nextMessageNumber;
-    childNode.setAttribute('id',id);
-    childNode.textContent = x;
-    parent.parentNode.appendChild(childNode);
+    childNode.id = id;
+    parent.appendChild(childNode);
     messageCount++;
     nextMessageNumber++;
     if (nextMessageNumber > 4){
@@ -79,8 +80,8 @@ function logout(){
 function getAverage(x){
     const scoreid = x + "score";
     const reviewid = x + "review";
-    const score = localStorage.getItem(scoreid);
-    const reviews = localStorage.getItem(reviewid);
+    const score = number(localStorage.getItem(scoreid));
+    const reviews = number(localStorage.getItem(reviewid));
     if(reviews === 0){
         return 0;
     }
