@@ -67,8 +67,26 @@ function hideLogout(){
     document.getElementById("logout").hidden = true;
 }
 function register(){
-    //registers user, logs them in
-    showLogout();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    if(!username || !password){
+        const x = "Either your Username or Password are not filled in. Please try again.";
+        showMessage(x,'r');
+    } else if (localStorage.getItem(username) != null) {
+        showMessage("Username already in use. Please try again with a different username.",'r');
+    } else {
+        localStorage.setItem(username,password);
+        tokenGenerator(username);
+        showMessage("Login Successful",'g');
+        showLogout(username);
+    }
+}
+function tokenGenerator(username){
+    const uuid = String(crypto.randomUUID());
+    localStorage.setItem(uuid,username);
+    localStorage.setItem(authToken, uuid);
 }
 let messageCount = 0;
 let nextMessageNumber = 0;
@@ -134,6 +152,7 @@ function updateScore(x,y){
     localStorage.setItem(scoreid,Number(localStorage.getItem(scoreid)) + y);
 }
 function authCheck(x){
+    return localStorage.getItem(x);
     //check validity of authtoken x
 }
 function clear(){
