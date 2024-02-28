@@ -6,6 +6,7 @@ function submitReview(){
         const id = user + "review" + game;
         if(localStorage.getItem(id) != null){
             updateScore(game,getDifference(user,game,score));
+            showMessage("Your score has been updated.",'n');
         } else {
             addScore(game,score);
             changeScore(game);
@@ -56,9 +57,16 @@ function login(){
         const x = "Either your Username or Password are not filled in. Please try again.";
         showMessage(x,'r');
     } else {
-        //check login database, send needed message depending on pass/fail.
-        showMessage("Login Successful",'g');
-        showLogout(username);
+        const dataPass = localStorage.getItem(username);
+        if(dataPass === null){
+            showMessage("That username does not exist. Please try again.",'r');
+        } else if(dataPass === password){
+            tokenGenerator(username);
+            showMessage("Login Successful",'g');
+            showLogout(username);
+        } else {
+            showMessage("Incorrect Password. Please try again.",'r');
+        }
     }
 }
 function showLogout(x){
