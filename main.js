@@ -6,6 +6,7 @@ function submitReview(){
         const id = user + "review" + game;
         if(localStorage.getItem(id) != null){
             updateScore(game,getDifference(user,game,score));
+            changeScore(game);
             showMessage("Your score has been updated.",'n');
         } else {
             addScore(game,score);
