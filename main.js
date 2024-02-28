@@ -7,7 +7,12 @@ function submitReview(){
 }
 
 function run(){
-    clear();
+    if(localStorage.getItem("authToken") != null){
+        const user = authCheck(localStorage.getItem("authToken"));
+        if (user != null){
+            showLogout(user);
+        }
+    }
     for(let i = 1; i < 5; i++){
         const scoreid = i + "score";
         const reviewid = i + "review";
