@@ -1,9 +1,19 @@
 function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
-    //insert login validation
-    addScore(game,score);
-    changeScore(game);
+    const user = authCheck(localStorage.getItem("authToken"));
+    if(user != null){
+        const id = user + "review" + game;
+        if(localStorage.getItem(id) != null){
+            updateScore(game,getDifference(user,game,score));
+        } else {
+            addScore(game,score);
+            changeScore(game);
+        }
+        localStorage.setItem(id,score);
+    } else {
+        showMessage("Unable to submit review without being logged in. Please log in and try again.",'r');
+    }
 }
 
 function run(){
@@ -91,7 +101,7 @@ function register(){
 function tokenGenerator(username){
     const uuid = String(crypto.randomUUID());
     localStorage.setItem(uuid,username);
-    localStorage.setItem(authToken, uuid);
+    localStorage.setItem("authToken", uuid);
 }
 let messageCount = 0;
 let nextMessageNumber = 0;
