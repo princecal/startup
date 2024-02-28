@@ -121,6 +121,9 @@ function showMessage(x,y){
 }
 function logout(){
     //Logs out user, deletes auth token
+    const token = localStorage.getItem("authToken");
+    localStorage.removeItem(token);
+    localStorage.removeItem("authToken");
     showMessage("Logout Successful",'g')
     hideLogout();
 }
