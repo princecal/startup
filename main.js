@@ -36,6 +36,7 @@ function run(){
         }
         changeScore(i);
     }
+    quote();
 }
 function changeScore(game){
     const average = parseFloat(getAverage(game).toFixed(1));
@@ -185,4 +186,17 @@ function authCheck(x){
 function clear(){
     //Remove later
     localStorage.clear();
+}
+function quote(){
+    try{
+        const r = fetch('https://ultima.rest/api/random')
+        const j = r.json();
+        const quote = j.getItem("quote");
+        const character = j.getItem("character");
+        const title = j.getItem("title");
+        console.log(j);
+    } catch {
+
+    }
+    
 }
