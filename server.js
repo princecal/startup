@@ -23,28 +23,26 @@ app.post('/register', (req, res, next) => {
 function checkName(x) {
     for (i in users){
         if(i.username === x){
-            return true;
+            return i.password;
         }
     }
-    return false;
+    return null;
 }
 function checkReview(x,y){
     for (i in reviews){
         if(i.username === x && i.gameID === y){
             return i.score;
-        } else {
-            return null;
-        }
+        } 
     }
+    return null;
 }
 function checkAuth(w,x){
     for (i in tokens){
         if(i.token === w){
             return i.username;
-        } else {
-            return null;
-        }
+        } 
     }
+    return null;
 }
 
 //Middleware for getting x users review score of game y
@@ -73,8 +71,7 @@ app.post('user', (req, res, next) => {
 });
 function tokenGenerator(username){
     const uuid = String(crypto.randomUUID());
-    localStorage.setItem(uuid,username);
-    localStorage.setItem("authToken", uuid);
+    tokens.push({username: username, token: uuid});
 }
 const port = 3000;
 app.listen(port, function () {
