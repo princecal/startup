@@ -44,4 +44,17 @@ For this deliverable, I rebuilt my application to work with Flexbox and styled t
 **Responsive Design** - Uses Flexbox to create a responsive design, and uses media queries for smaller screens.   
 **Application Elements** - Application elements have been properly styled to stick out from the background, and buttons implement bootstrap buttons.  
 **Application Text Content** - Text has been styled white to account for the dark mode design.  
-**Images** - Are displayed in table format.
+**Images** - Are displayed in table format.  
+
+## JavaScript Deliverable  
+For this deliviable, I added JavaScript interaction to my application.  
+### Prerequisites  
+**Simon JavaScript** - Complete  
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete  
+### JavaScript Requirements  
+**Javascript support for login** - Basic Login has been added. Application checks if username is already taken when regestering, if the password is incorrect, or if either value in the form is blank.  
+**Javascript support for database** - Database elements have been implemented temporarily using LocalStorage.  
+**Javascript support for websocket** - On left bar of application, messages will show on successful or failed login or register attempts, more messages will be implemented as websockets are implemented.  
+**Javascript support for interaction** - Application ensures that user is logged in to submit review, will properly get the correct score from database, and will update a users review score upon entering a score for a game they have already reviewed.  
