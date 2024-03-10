@@ -31,7 +31,7 @@ function checkUser(x) {
 function checkReview(x,y){
     for (i in reviews){
         if(i.username === x && i.gameID === y){
-            return i.score;
+            return i;
         } 
     }
     return null;
@@ -44,6 +44,14 @@ function checkAuth(w){
     }
     return null;
 }
+function checkGame(y){
+    for (i in games){
+        if(i.gameID === y){
+            return i;
+        } 
+    }
+    return null;
+}
 
 //Middleware for getting x users review score of game y
 app.get('/score', (req, res, next) => {
@@ -51,11 +59,36 @@ app.get('/score', (req, res, next) => {
 });
 //Middleware for submitting x users review score of game y
 app.post('/score', (req, res, next) => {
-    
+    const token = req.token;
+    const name = checkAuth(token);
+    if (name != null){
+        const gameID = req.gameID;
+        const score = req.score;
+        reviews.push({username: name, gameId: gameID, score: score});
+        let game = checkGame(gameId);
+        game.totalScore += score;
+        game.numReviews++;
+        res.status(200).send();
+    } else {
+        res.status(401).send();
+    }
 });
 //Middleware for updating x users review score of game y
 app.put('/score', (req, res, next) => {
-    
+    const token = req.token;
+    const name = checkAuth(token);
+    if (name != null){
+        const gameID = req.gameID;
+        const score = req.score;
+        let review = checkReview(name,gameID);
+        const totalScore = score - review.score;
+        review.score += totalScore;
+        let game = checkGame(gameId);
+        game.totalScore += totalScore;
+        res.status(200).send();
+    } else {
+        res.status(401).send();
+    }
 });
 //Middleware for logout
 app.delete('/user', (req, res, next) => {
