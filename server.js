@@ -9,7 +9,6 @@ let games = [];
 app.post('/register', (req, res, next) => {
     const username = req.name;
     const password = req.password;
-    
     //return authtoken if succesful, error if fail
     if(checkUser(username) === null){
         users.push({username: username, password: password});
@@ -52,11 +51,6 @@ function checkGame(y){
     }
     return null;
 }
-
-//Middleware for getting x users review score of game y
-app.get('/score', (req, res, next) => {
-
-});
 //Middleware for submitting x users review score of game y
 app.post('/score', (req, res, next) => {
     const token = req.token;
@@ -108,7 +102,16 @@ app.get('/review', (req, res, next) => {
 });
 //Middleware for logging in user x with password z
 app.post('/user', (req, res, next) => {
-    
+    const name = req.username;
+    pass = checkUser(name);
+    if(pass === null){
+        res.status(404).send();
+    } else if (pass === req.password){
+        const authToken = tokenGenerator(username);
+        res.status(200).send({token: authToken});
+    } else {
+        res.status(401).send();
+    }
 });
 //middleware for checking if a authtoken is valid
 app.get('/user', (req, res, next) => {
