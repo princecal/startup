@@ -102,7 +102,9 @@ app.delete('/user', (req, res, next) => {
 });
 //Middleware for getting number of reviews and total score of game y
 app.get('/review', (req, res, next) => {
-    
+    const gameID = req.gameID;
+    let game = checkGame(gameId);
+    res.status(200).send({numReviews: game.numReviews, totalScore: game.totalScore});
 });
 //Middleware for logging in user x with password z
 app.post('/user', (req, res, next) => {
