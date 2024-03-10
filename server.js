@@ -4,6 +4,7 @@ app.use(express.static('public'));
 let users = [];
 let tokens = [];
 let reviews = [];
+let games = [];
 //Middleware for registering x user with password z
 app.post('/register', (req, res, next) => {
     const username = req.name;
@@ -58,7 +59,13 @@ app.put('/score', (req, res, next) => {
 });
 //Middleware for logout
 app.delete('/user', (req, res, next) => {
-    
+    const token = req.token;
+    const name = checkAuth(token);
+    tokens.filter(filterToken);
+    function filterToken(obj){
+        return obj.username != name;
+    }
+    res.status(200).send();
 });
 //Middleware for getting number of reviews and total score of game y
 app.get('/review', (req, res, next) => {
