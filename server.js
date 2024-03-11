@@ -93,10 +93,9 @@ app.delete('/user', (req, res, next) => {
     const token = req.query.token;
     const name = checkAuth(token);
     if(name != null){
-        tokens.filter(filterToken);
-        function filterToken(obj){
-            return obj.username != name;
-        }
+        tokens = tokens.filter((auth) => {
+            return auth.username != name;
+        });
         res.status(200).send();
     } else {
         res.status(404).send();
