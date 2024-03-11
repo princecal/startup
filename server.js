@@ -13,7 +13,7 @@ app.post('/register', (req, res, next) => {
     if(checkUser(username) === null){
         users.push({username: username, password: password});
         const authToken = tokenGenerator(username);
-        res.status(200).send({token: authToken});
+        res.status(200).send(JSON.stringify({token: authToken}));
     }else {
         res.status(401).send();
     }
@@ -98,7 +98,7 @@ app.delete('/user', (req, res, next) => {
 app.get('/review', (req, res, next) => {
     const gameID = req.gameID;
     let game = checkGame(gameId);
-    res.status(200).send({numReviews: game.numReviews, totalScore: game.totalScore});
+    res.status(200).send(JSON.stringify({numReviews: game.numReviews, totalScore: game.totalScore}));
 });
 //Middleware for logging in user x with password z
 app.post('/user', (req, res, next) => {
@@ -108,7 +108,7 @@ app.post('/user', (req, res, next) => {
         res.status(404).send();
     } else if (pass === req.password){
         const authToken = tokenGenerator(username);
-        res.status(200).send({token: authToken});
+        res.status(200).send(JSON.stringify({token: authToken}));
     } else {
         res.status(401).send();
     }
@@ -118,7 +118,7 @@ app.get('/user', (req, res, next) => {
     const token = req.token;
     const name = checkAuth(token);
     if(name != null){
-        res.status(200).send({username: name});
+        res.status(200).send(JSON.stringify({username: name}));
     } else {
         res.status(401).send();
     }
