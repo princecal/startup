@@ -87,17 +87,21 @@ app.put('/score', (req, res, next) => {
 });
 //Middleware for logout
 app.delete('/user', (req, res, next) => {
-    const token = req.body.token;
+    const token = req.query.token;
     const name = checkAuth(token);
-    tokens.filter(filterToken);
-    function filterToken(obj){
-        return obj.username != name;
+    if(name != null){
+        tokens.filter(filterToken);
+        function filterToken(obj){
+            return obj.username != name;
+        }
+        res.status(200).send();
+    } else {
+        res.status(404).send();
     }
-    res.status(200).send();
 });
 //Middleware for getting number of reviews and total score of game y
 app.get('/review', (req, res, next) => {
-    const gameID = req.body.gameID;
+    const gameID = req.query.gameID;
     let game = checkGame(gameId);
     res.status(200).send(JSON.stringify({numReviews: game.numReviews, totalScore: game.totalScore}));
 });
@@ -116,7 +120,7 @@ app.post('/user', (req, res, next) => {
 });
 //middleware for checking if a authtoken is valid
 app.get('/user', (req, res, next) => {
-    const token = req.body.token;
+    const token = req.query.token;
     const name = checkAuth(token);
     if(name != null){
         res.status(200).send(JSON.stringify({username: name}));
