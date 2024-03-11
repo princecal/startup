@@ -11,7 +11,7 @@ for (i = 1; i < 5; i++){
     games.push({gameID: i, numReviews: 0, totalScore: 0})
 }
 function checkUser(x) {
-    for (i in users){
+    for (i of users){
         if(i.username === x){
             return i.password;
         }
@@ -19,7 +19,7 @@ function checkUser(x) {
     return null;
 }
 function checkReview(x,y){
-    for (i in reviews){
+    for (i of reviews){
         if(i.username === x && i.gameID === y){
             return i;
         } 
@@ -27,7 +27,7 @@ function checkReview(x,y){
     return null;
 }
 function checkAuth(w){
-    for (i in tokens){
+    for (i of tokens){
         if(i.token === w){
             return i.username;
         } 
@@ -60,8 +60,8 @@ app.post('/score', (req, res, next) => {
     const token = req.body.token;
     const name = checkAuth(token);
     if (name != null){
-        const gameID = req.body.gameID;
-        const score = req.body.score;
+        const gameID = Number(req.body.gameID);
+        const score = Number(req.body.score);
         reviews.push({username: name, gameID: gameID, score: score});
         let game = checkGame(gameID);
         game.totalScore += score;
@@ -76,8 +76,8 @@ app.put('/score', (req, res, next) => {
     const token = req.body.token;
     const name = checkAuth(token);
     if (name != null){
-        const gameID = req.body.gameID;
-        const score = req.body.score;
+        const gameID = Number(req.body.gameID);
+        const score = Number(req.body.score);
         let review = checkReview(name,gameID);
         const totalScore = score - review.score;
         review.score += totalScore;
@@ -110,10 +110,10 @@ app.get('/review', (req, res, next) => {
 });
 //Middleware for checking if user has submitted review for submitted game
 app.get('/score', (req,res,next) =>{
-    const gameID = req.query.gameID;
+    const gameID = Number(req.query.gameID);
     const username = req.query.username;
     const review = checkReview(username,gameID);
-    if(review != null){req.status(200).send();}
+    if(review != null){res.status(200).send();}
     else {res.status(404).send();}
 });
 //Middleware for logging in user x with password z
@@ -142,6 +142,7 @@ app.get('/user', (req, res, next) => {
 function tokenGenerator(username){
     const uuid = String(crypto.randomUUID());
     tokens.push({username: username, token: uuid});
+    return uuid;
 }
 const port = 3000;
 app.listen(port, function () {

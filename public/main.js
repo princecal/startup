@@ -1,17 +1,16 @@
 async function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
-    const user = getUser(localStorage.getItem("authToken"));
+    const user = await getUser(localStorage.getItem("authToken"));
     if(user != null){
         try{
-         if(getReview(user,game)){
+         if(await getReview(user,game)){
             url = '/score';
             const response = await fetch(url, {
               method: 'PUT',
               headers: {'content-type': 'application/json'},
               body: JSON.stringify({"token": localStorage.getItem("authToken"), "gameID": game, "score": score}),
             });
-            const res = await response.json();
             if(response.status === 200){
                 changeScore(game);
                 showMessage("Your score has been updated.",'n');
@@ -25,7 +24,6 @@ async function submitReview(){
               headers: {'content-type': 'application/json'},
               body: JSON.stringify({"token": localStorage.getItem("authToken"), "gameID": game, "score": score}),
             });
-            const res = await response.json();
             if(response.status === 200){
                 changeScore(game);
                 showMessage("Your review has been submitted.",'n');
@@ -34,7 +32,6 @@ async function submitReview(){
             }
             
          }
-         localStorage.setItem(id,score);
         } catch{
             showMessage("An error has occured.",'r');
         }
@@ -47,10 +44,8 @@ async function getReview(user,game){
         url = '/score?username=' + user + '&gameID=' + game;
         const response = await fetch(url, {
           method: 'GET',
-          headers: {'content-type': 'application/json'},
         });
-        const res = await response.json();
-        if(res.status === 200){
+        if(response.ok === true){
             return true
         } else {
             return false;
@@ -60,9 +55,9 @@ async function getReview(user,game){
     }
 }
 
-function run(){
+async function run(){
     if(localStorage.getItem("authToken") != null){
-        const user = getUser(localStorage.getItem("authToken"));
+        const user = await getUser(localStorage.getItem("authToken"));
         if (user != null){
             showLogout(user);
         }
@@ -97,7 +92,8 @@ async function changeScore(game){
           headers: {'content-type': 'application/json'},
         });
         const reviewScores = await response.json();
-        const average = parseFloat((reviewScores.totalScores / reviewScores.numReviews).toFixed(1));
+        let average = 0;
+        if(reviewScores.numReviews != 0){average = parseFloat((reviewScores.totalScore / reviewScores.numReviews).toFixed(1));}
         const id = "game" + game;
         if(average >= 7){
             document.getElementById(id).className = "good";
@@ -170,8 +166,8 @@ async function register(){
               headers: {'content-type': 'application/json'},
               body: JSON.stringify({username: username, password: password}),
             });
-            const res = await response.json();
             if(response.status === 200){
+                const res = await response.json();
                 localStorage.setItem("authToken", res.token);
                 showMessage("Login Successful",'g');
                 showLogout(username);
