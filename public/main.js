@@ -1,7 +1,7 @@
 function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
-    const user = authCheck(localStorage.getItem("authToken"));
+    const user = getUser(localStorage.getItem("authToken"));
     if(user != null){
         const id = user + "review" + game;
         if(localStorage.getItem(id) != null){
@@ -15,6 +15,23 @@ function submitReview(){
         localStorage.setItem(id,score);
     } else {
         showMessage("Unable to submit review without being logged in. Please log in and try again.",'r');
+    }
+}
+async function getReview(user,game){
+    try {
+        url = '/score?username=' + user + '&gameID=' + game;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {'content-type': 'application/json'},
+        });
+        const res = await response.json();
+        if(res.status === 200){
+            return true
+        } else {
+            return false;
+        }
+    } catch {
+        return false;
     }
 }
 
