@@ -118,11 +118,11 @@ app.get('/score', (req,res,next) =>{
 });
 //Middleware for logging in user x with password z
 app.post('/user', (req, res, next) => {
-    const name = req.body.username;
-    pass = checkUser(name);
+    const username = req.body.username;
+    const pass = checkUser(username);
     if(pass === null){
         res.status(404).send();
-    } else if (pass === req.password){
+    } else if (pass === req.body.password){
         const authToken = tokenGenerator(username);
         res.status(200).send({token: authToken});
     } else {
