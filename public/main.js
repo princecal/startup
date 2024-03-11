@@ -28,6 +28,7 @@ async function submitReview(){
             const res = await response.json();
             if(response.status === 200){
                 changeScore(game);
+                showMessage("Your review has been submitted.",'n');
             } else {
                 showMessage("An error has occured.",'r');
             }
@@ -151,7 +152,7 @@ function hideLogout(){
     document.getElementById("register").hidden = false;
     document.getElementById("logout").hidden = true;
 }
-function register(){
+async function register(){
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     document.getElementById("username").value = "";
@@ -162,10 +163,25 @@ function register(){
     } else if (localStorage.getItem(username) != null) {
         showMessage("Username already in use. Please try again with a different username.",'r');
     } else {
-        localStorage.setItem(username,password);
-        tokenGenerator(username);
-        showMessage("Login Successful",'g');
-        showLogout(username);
+        try{
+        url = '/user';
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {'content-type': 'application/json'},
+              body: JSON.stringify({"username": username, "password": password}),
+            });
+            const res = await response.json();
+            if(response.status === 200){
+                localStorage.setItem("authToken", res.token);
+                showMessage("Login Successful",'g');
+                showLogout(username);
+            } else {
+                showMessage("Username already in use. Please try again with a different username.",'r');
+            }
+        }
+        catch{
+            showMessage("An error has occured.",'r');
+        }
     }
 }
 let messageCount = 0;

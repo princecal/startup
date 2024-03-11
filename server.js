@@ -105,6 +105,7 @@ app.get('/review', (req, res, next) => {
     let game = checkGame(gameId);
     res.status(200).send({"numReviews": game.numReviews, "totalScore": game.totalScore});
 });
+//Middleware for checking if user has submitted review for submitted game
 app.get('/score', (req,res,next) =>{
     const gameID = req.query.gameID;
     const username = req.query.username;
