@@ -164,11 +164,11 @@ async function register(){
         showMessage("Username already in use. Please try again with a different username.",'r');
     } else {
         try{
-        url = '/user';
+        url = '/register';
             const response = await fetch(url, {
               method: 'POST',
               headers: {'content-type': 'application/json'},
-              body: JSON.stringify({"username": username, "password": password}),
+              body: JSON.stringify({username: username, password: password}),
             });
             const res = await response.json();
             if(response.status === 200){
