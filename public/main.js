@@ -20,35 +20,54 @@ function submitReview(){
 
 function run(){
     if(localStorage.getItem("authToken") != null){
-        const user = authCheck(localStorage.getItem("authToken"));
+        const user = getUser(localStorage.getItem("authToken"));
         if (user != null){
             showLogout(user);
         }
     }
     for(let i = 1; i < 5; i++){
-        const scoreid = i + "score";
-        const reviewid = i + "review";
-        if(localStorage.getItem("scoreid") === null){
-            localStorage.setItem("scoreid", 0);
-        }
-        if(localStorage.getItem("reviewid") === null){
-            localStorage.setItem("reviewid", 0);
-        }
         changeScore(i);
     }
     quote();
 }
-function changeScore(game){
-    const average = parseFloat(getAverage(game).toFixed(1));
-    const id = "game" + game;
-    if(average >= 7){
-        document.getElementById(id).className = "good";
-     } else if(average >= 4){
-         document.getElementById(id).className = "medium";
-     } else {
-         document.getElementById(id).className = "bad";
-     }
-     document.getElementById(id).textContent = average + "/10"
+async function getUser(token){
+    try {
+        url = '/user?token=' + token;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {'content-type': 'application/json'},
+        });
+        const res = await response.json();
+        if(res.status === 200){
+            return res.username;
+        } else {
+            return null;
+        }
+    } catch {
+        return null;
+    }
+}
+async function changeScore(game){
+    try {
+        url = '/review?gameID=' + game;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {'content-type': 'application/json'},
+        });
+        const reviewScores = await response.json();
+        const average = parseFloat((reviewScores.totalScores / reviewScores.numReviews).toFixed(1));
+        const id = "game" + game;
+        if(average >= 7){
+            document.getElementById(id).className = "good";
+        } else if(average >= 4){
+            document.getElementById(id).className = "medium";
+        } else {
+            document.getElementById(id).className = "bad";
+        }
+        document.getElementById(id).textContent = average + "/10"
+    } catch {
+        showMessage("An error has occured displaying the score data.",'r');
+    }
 }
 function login(){
     const username = document.getElementById("username").value;
@@ -108,11 +127,6 @@ function register(){
         showLogout(username);
     }
 }
-function tokenGenerator(username){
-    const uuid = String(crypto.randomUUID());
-    localStorage.setItem(uuid,username);
-    localStorage.setItem("authToken", uuid);
-}
 let messageCount = 0;
 let nextMessageNumber = 0;
 function showMessage(x,y){
@@ -151,41 +165,6 @@ function logout(){
     localStorage.removeItem("authToken");
     showMessage("Logout Successful",'g')
     hideLogout();
-}
-function getAverage(x){
-    const scoreid = x + "score";
-    const reviewid = x + "review";
-    const score = Number(localStorage.getItem(scoreid));
-    const reviews = Number(localStorage.getItem(reviewid));
-    if(reviews === 0){
-        return 0;
-    }
-    return score/reviews;
-}
-function getDifference(x,y,z){
-    const reviewid = x + "review" + y;
-    const old = Number(localStorage.getItem(reviewid));
-    return z - old;
-    //gets difference between a user x's old review of game y and new review with score z
-}
-function addScore(x,y){
-    const scoreid = x + "score";
-    const reviewid = x + "review";
-    localStorage.setItem(scoreid,Number(localStorage.getItem(scoreid)) + y);
-    localStorage.setItem(reviewid,Number(localStorage.getItem(reviewid)) + 1);
-    
-}
-function updateScore(x,y){
-    const scoreid = x + "score";
-    localStorage.setItem(scoreid,Number(localStorage.getItem(scoreid)) + y);
-}
-function authCheck(x){
-    return localStorage.getItem(x);
-    //check validity of authtoken x
-}
-function clear(){
-    //Remove later
-    localStorage.clear();
 }
 function quote(){
     try{
