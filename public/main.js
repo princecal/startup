@@ -178,8 +178,7 @@ async function register(){
             } else {
                 showMessage("Username already in use. Please try again with a different username.",'r');
             }
-        }
-        catch{
+        }catch{
             showMessage("An error has occured.",'r');
         }
     }

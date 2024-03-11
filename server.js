@@ -1,28 +1,15 @@
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
+const crypto = require('crypto');
 let users = [];
 let tokens = [];
 let reviews = [];
 let games = [];
 app.use(express.json());
-for (i = 0; i < 5; i++){
+for (i = 1; i < 5; i++){
     games.push({gameID: i, numReviews: 0, totalScore: 0})
 }
-//Middleware for registering x user with password z
-app.post('/register', (req, res, next) => {
-    const username = req.body.name;
-    const password = req.body.password;
-    //return authtoken if succesful, error if fail
-    if(checkUser(username) === null){
-        users.push({username: username, password: password});
-        const authToken = tokenGenerator(username);
-        res.status(200).send(JSON.stringify({token: authToken}));
-    }else {
-        res.status(401).send();
-    }
-  });
-
 function checkUser(x) {
     for (i in users){
         if(i.username === x){
@@ -48,13 +35,26 @@ function checkAuth(w){
     return null;
 }
 function checkGame(y){
-    for (i in games){
+    for (i of games){
         if(i.gameID === y){
             return i;
         } 
     }
     return null;
 }
+//Middleware for registering x user with password z
+app.post('/register', (req, res, next) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    //return authtoken if succesful, error if fail
+    if(checkUser(username) === null){
+        users.push({username: username, password: password});
+        const authToken = tokenGenerator(username);
+        res.status(200).send(JSON.stringify({token: authToken}));
+    }else {
+        res.status(401).send();
+    }
+  });
 //Middleware for submitting x users review score of game y
 app.post('/score', (req, res, next) => {
     const token = req.body.token;
@@ -104,7 +104,7 @@ app.delete('/user', (req, res, next) => {
 });
 //Middleware for getting number of reviews and total score of game y
 app.get('/review', (req, res, next) => {
-    const gameID = req.query.gameID;
+    const gameID = Number(req.query.gameID);
     let game = checkGame(gameID);
     res.status(200).send({numReviews: game.numReviews, totalScore: game.totalScore});
 });
@@ -114,7 +114,7 @@ app.get('/score', (req,res,next) =>{
     const username = req.query.username;
     const review = checkReview(username,gameID);
     if(review != null){req.status(200).send();}
-    else {req.status(404).send();}
+    else {res.status(404).send();}
 });
 //Middleware for logging in user x with password z
 app.post('/user', (req, res, next) => {
