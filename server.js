@@ -103,7 +103,7 @@ app.delete('/user', (req, res, next) => {
 app.get('/review', (req, res, next) => {
     const gameID = req.query.gameID;
     let game = checkGame(gameId);
-    res.status(200).send(JSON.stringify({"numReviews": game.numReviews, "totalScore": game.totalScore}));
+    res.status(200).send({"numReviews": game.numReviews, "totalScore": game.totalScore});
 });
 app.get('/score', (req,res,next) =>{
     const gameID = req.query.gameID;
@@ -120,7 +120,7 @@ app.post('/user', (req, res, next) => {
         res.status(404).send();
     } else if (pass === req.password){
         const authToken = tokenGenerator(username);
-        res.status(200).send(JSON.stringify({"token": authToken}));
+        res.status(200).send({"token": authToken});
     } else {
         res.status(401).send();
     }

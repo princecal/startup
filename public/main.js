@@ -1,18 +1,42 @@
-function submitReview(){
+async function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
     const user = getUser(localStorage.getItem("authToken"));
     if(user != null){
-        const id = user + "review" + game;
-        if(localStorage.getItem(id) != null){
-            updateScore(game,getDifference(user,game,score));
-            changeScore(game);
-            showMessage("Your score has been updated.",'n');
-        } else {
-            addScore(game,score);
-            changeScore(game);
+        try{
+         if(getReview(user,game)){
+            url = '/score';
+            const response = await fetch(url, {
+              method: 'PUT',
+              headers: {'content-type': 'application/json'},
+              body: JSON.stringify({"token": localStorage.getItem("authToken"), "gameID": game, "score": score}),
+            });
+            const res = await response.json();
+            if(response.status === 200){
+                changeScore(game);
+                showMessage("Your score has been updated.",'n');
+            } else {
+                showMessage("An error has occured.",'r');
+            }
+         } else {
+            url = '/score';
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {'content-type': 'application/json'},
+              body: JSON.stringify({"token": localStorage.getItem("authToken"), "gameID": game, "score": score}),
+            });
+            const res = await response.json();
+            if(response.status === 200){
+                changeScore(game);
+            } else {
+                showMessage("An error has occured.",'r');
+            }
+            
+         }
+         localStorage.setItem(id,score);
+        } catch{
+            showMessage("An error has occured.",'r');
         }
-        localStorage.setItem(id,score);
     } else {
         showMessage("Unable to submit review without being logged in. Please log in and try again.",'r');
     }
@@ -55,7 +79,7 @@ async function getUser(token){
           headers: {'content-type': 'application/json'},
         });
         const res = await response.json();
-        if(res.status === 200){
+        if(response.status === 200){
             return res.username;
         } else {
             return null;
