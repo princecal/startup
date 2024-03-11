@@ -107,7 +107,7 @@ async function changeScore(game){
         showMessage("An error has occured displaying the score data.",'r');
     }
 }
-function login(){
+async function login(){
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     document.getElementById("username").value = "";
@@ -116,16 +116,26 @@ function login(){
         const x = "Either your Username or Password are not filled in. Please try again.";
         showMessage(x,'r');
     } else {
-        const dataPass = localStorage.getItem(username);
-        if(dataPass === null){
-            showMessage("That username does not exist. Please try again.",'r');
-        } else if(dataPass === password){
-            tokenGenerator(username);
-            showMessage("Login Successful",'g');
-            showLogout(username);
-        } else {
-            showMessage("Incorrect Password. Please try again.",'r');
-        }
+        try{
+            url = '/user';
+                const response = await fetch(url, {
+                  method: 'POST',
+                  headers: {'content-type': 'application/json'},
+                  body: JSON.stringify({username: username, password: password}),
+                });
+                if(response.status === 200){
+                    const res = await response.json();
+                    localStorage.setItem("authToken", res.token);
+                    showMessage("Login Successful",'g');
+                    showLogout(username);
+                } else if(response.status === 404) {
+                    showMessage("That username does not exist. Please try again.",'r');
+                } else {
+                    showMessage("Incorrect Password. Please try again.",'r');
+                }
+    }catch{
+        showMessage("An error has occured.",'r');
+    }
     }
 }
 function showLogout(x){
