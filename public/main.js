@@ -220,24 +220,23 @@ function showMessage(x,y){
     }
     
 }
-function logout(){
+async function logout(){
     //Logs out user, deletes auth token
     const token = localStorage.getItem("authToken");
-    localStorage.removeItem(token);
-    localStorage.removeItem("authToken");
-    showMessage("Logout Successful",'g')
-    hideLogout();
+    url = '/user?token=' + token;
+        const response = await fetch(url, {
+          method: 'DELETE',
+    });
+    if(response.ok = true){
+        localStorage.removeItem("authToken");
+        showMessage("Logout Successful",'g')
+        hideLogout();
+    } else {
+        showMessage("Logout Unsuccessful",'r')
+    }
+    
 }
 function quote(){
-    try{
-        const r = fetch('https://ultima.rest/api/random')
-        const j = r.json();
-        const quote = j.getItem("quote");
-        const character = j.getItem("character");
-        const title = j.getItem("title");
-        console.log(j);
-    } catch {
-
-    }
+    
     
 }
