@@ -143,7 +143,7 @@ function tokenGenerator(username){
     tokens.push({username: username, token: uuid});
     return uuid;
 }
-const port = 8080;
+const port = 4000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
