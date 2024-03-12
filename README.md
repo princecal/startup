@@ -47,14 +47,28 @@ For this deliverable, I rebuilt my application to work with Flexbox and styled t
 **Images** - Are displayed in table format.  
 
 ## JavaScript Deliverable  
-For this deliviable, I added JavaScript interaction to my application.  
+For this deliverable, I added JavaScript interaction to my application.  
 ### Prerequisites  
 **Simon JavaScript** - Complete  
 **Github Link** - Complete  
 **Readme Update** - Complete  
 **Git Commits** - Complete  
 ### JavaScript Requirements  
-**Javascript support for login** - Basic Login has been added. Application checks if username is already taken when regestering, if the password is incorrect, or if either value in the form is blank.  
+**Javascript support for login** - Basic Login has been added. Application checks if username is already taken when registering, if the password is incorrect, or if either value in the form is blank.  
 **Javascript support for database** - Database elements have been implemented temporarily using LocalStorage.  
-**Javascript support for websocket** - On left bar of application, messages will show on successful or failed login or register attempts, more messages will be implemented as websockets are implemented.  
-**Javascript support for interaction** - Application ensures that user is logged in to submit review, will properly get the correct score from database, and will update a users review score upon entering a score for a game they have already reviewed.  
+**Javascript support for websocket** - On the left bar of the application, messages will show on successful or failed login or register attempts, more messages will be implemented as websockets are implemented.  
+**Javascript support for interaction** - The application ensures that user is logged in to submit review, will properly get the correct score from database, and will update a users review score upon entering a score for a game they have already reviewed.  
+
+## Services Deliverable  
+For this deliverable, I added Services and API interactions to my application.  
+### Prerequisites  
+**Simon Service** - Complete  
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete  
+### JavaScript Requirements  
+**Node and Express HTTP Service** - Complete  
+**Static Middleware Frontend** - Complete  
+**Third Party Service Call** - Complete  
+**Backend Provides Service Endpoints** - Complete  
+**Frontend Calls Service Endpoints** - Complete  
