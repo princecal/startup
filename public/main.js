@@ -236,7 +236,12 @@ async function logout(){
     }
     
 }
-function quote(){
-    
-    
+async function quote(){
+    const response = await fetch("https://www.amiiboapi.com/api/amiibo/?type=figure");
+    const res = await response.json();
+    const array = res.amiibo;
+    const index = Math.floor(Math.random() * array.length)
+    const amiibo = array[index];
+    const text = "Random Amiibo Selection: " + amiibo.name + " from the " + amiibo.amiiboSeries + " series, which was released on " + amiibo.release.na;
+    document.getElementById("api").textContent = text;
 }
