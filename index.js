@@ -2,10 +2,14 @@ const express = require('express');
 const app = express();
 app.use(express.static('public'));
 const crypto = require('crypto');
-let users = [];
-let tokens = [];
-let reviews = [];
-let games = [];
+const config = require('./dbConfig.json');
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const client = new MongoClient(url);
+const db = client.db('gameReviews');
+const users = db.collection('users');
+const tokens = db.collection('tokens');
+const reviews = db.collection('reviews');
+const games = db.collection('games');
 app.use(express.json());
 for (i = 1; i < 5; i++){
     games.push({gameID: i, numReviews: 0, totalScore: 0})
