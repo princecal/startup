@@ -44,29 +44,29 @@ async function checkUser(x) {
         return null;
     }
 }
-function checkReview(x,y){
-    for (i of reviews){
-        if(i.username === x && i.gameID === y){
-            return i;
-        } 
+async function checkReview(x,y){
+    const document = await reviews.find({username: x, gameID: y});
+    if(document){
+        return document;
+    } else {
+        return null;
     }
-    return null;
 }
-function checkAuth(w){
-    for (i of tokens){
-        if(i.token === w){
-            return i.username;
-        } 
+async function checkAuth(w){
+    const document = await tokens.find({tokens: w});
+    if(document){
+        return document.username;
+    } else {
+        return null;
     }
-    return null;
 }
-function checkGame(y){
-    for (i of games){
-        if(i.gameID === y){
-            return i;
-        } 
+async function checkGame(y){
+    const document = await users.find({gameID: y});
+    if(document){
+        return document;
+    } else {
+        return null;
     }
-    return null;
 }
 //Middleware for registering x user with password z
 app.post('/register', (req, res, next) => {
