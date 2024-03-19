@@ -11,9 +11,31 @@ const tokens = db.collection('tokens');
 const reviews = db.collection('reviews');
 const games = db.collection('games');
 app.use(express.json());
-for (i = 1; i < 5; i++){
-    games.push({gameID: i, numReviews: 0, totalScore: 0})
+async function main() {
+    (async function testConnection() {
+        await client.connect();
+        await db.command({ ping: 1 });
+      })().catch((ex) => {
+        console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+        process.exit(1);
+      });
+    for (i = 1; i < 5; i++){
+        let name = "";
+        switch(i){
+            case 1: name = "Pokemon Scarlet/Violet"; break; 
+            case 2: name = "Super Mario Bros. Wonder"; break; 
+            case 3: name = "Tears of the Kingdom"; break; 
+            case 4: name = "Lord of the Rings: Gollum"; break; 
+        }
+        games.updateOne({ gameID : i }, 
+           {
+            $setOnInsert: {gameID : i, name: name, numReviews: 0, totalScore: 0}
+           },
+           {upsert: true})
+    }
 }
+
+
 function checkUser(x) {
     for (i of users){
         if(i.username === x){
@@ -151,3 +173,4 @@ const port = 4000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+main().catch(console.error)
