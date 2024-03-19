@@ -36,13 +36,13 @@ async function main() {
 }
 
 
-function checkUser(x) {
-    for (i of users){
-        if(i.username === x){
-            return i.password;
-        }
+async function checkUser(x) {
+    const document = await users.find({username: x});
+    if(document){
+        return document.password;
+    } else {
+        return null;
     }
-    return null;
 }
 function checkReview(x,y){
     for (i of reviews){
