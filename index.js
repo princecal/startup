@@ -37,7 +37,7 @@ async function main() {
 
 
 async function checkUser(x) {
-    const document = await users.find({username: x});
+    const document = await users.findOne({username: x});
     if(document){
         return document.password;
     } else {
@@ -45,7 +45,7 @@ async function checkUser(x) {
     }
 }
 async function checkReview(x,y){
-    const document = await reviews.find({username: x, gameID: y});
+    const document = await reviews.findOne({username: x, gameID: y});
     if(document){
         return document;
     } else {
@@ -53,7 +53,7 @@ async function checkReview(x,y){
     }
 }
 async function checkAuth(w){
-    const document = await tokens.find({tokens: w});
+    const document = await tokens.findOne({tokens: w});
     if(document){
         return document.username;
     } else {
@@ -61,7 +61,7 @@ async function checkAuth(w){
     }
 }
 async function checkGame(y){
-    const document = await users.find({gameID: y});
+    const document = await users.findOne({gameID: y});
     if(document){
         return document;
     } else {
@@ -88,10 +88,11 @@ app.post('/score', (req, res, next) => {
     if (name != null){
         const gameID = Number(req.body.gameID);
         const score = Number(req.body.score);
-        reviews.push({username: name, gameID: gameID, score: score});
+        reviews.insertOne({username: name, gameID: gameID, score: score});
         let game = checkGame(gameID);
-        game.totalScore += score;
-        game.numReviews++;
+        const totalScore = game.totalScore + score;
+        const numReviews = game.numReviews + 1;
+        games.updateOne({gameID: gameID}, {$set: {gameID: gameID, totalScore: totalScore, numReviews: numReviews}});
         res.status(200).send();
     } else {
         res.status(401).send();
