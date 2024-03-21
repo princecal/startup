@@ -3,6 +3,7 @@ const app = express();
 app.use(express.static('public'));
 const crypto = require('crypto');
 const config = require('./dbConfig.json');
+const cookieParser = require('cookie-parser');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
 const db = client.db('gameReviews');
@@ -11,6 +12,7 @@ const tokens = db.collection('tokens');
 const reviews = db.collection('reviews');
 const games = db.collection('games');
 app.use(express.json());
+app.use(cookieParser());
 async function main() {
     (async function testConnection() {
         await client.connect();
@@ -82,7 +84,7 @@ app.post('/register', (req, res, next) => {
     }
   });
 //Middleware for submitting x users review score of game y
-app.post('/score', (req, res, next) => {
+app.post('/score', async (req, res, next) => {
     const token = req.body.token;
     const name = checkAuth(token);
     if (name != null){
@@ -116,13 +118,11 @@ app.put('/score', (req, res, next) => {
     }
 });
 //Middleware for logout
-app.delete('/user', (req, res, next) => {
-    const token = req.query.token;
-    const name = checkAuth(token);
+app.delete('/user', async (req, res, next) => {
+    const token = req?.cookies.token;
+    const name = await checkAuth(token);
     if(name != null){
-        tokens = tokens.filter((auth) => {
-            return auth.username != name;
-        });
+        tokens.remove({token: token});
         res.status(200).send();
     } else {
         res.status(404).send();
@@ -157,7 +157,7 @@ app.post('/user', (req, res, next) => {
 });
 //middleware for checking if a authtoken is valid
 app.get('/user', (req, res, next) => {
-    const token = req.query.token;
+    const token = req?.cookies.token;
     const name = checkAuth(token);
     if(name != null){
         res.status(200).send(JSON.stringify({username: name}));
@@ -174,4 +174,4 @@ const port = 4000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
-main().catch(console.error)
+main().catch(console.error);
