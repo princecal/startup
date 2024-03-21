@@ -3,6 +3,7 @@ const app = express();
 app.use(express.static('public'));
 const crypto = require('crypto');
 const config = require('./dbConfig.json');
+const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
@@ -41,7 +42,7 @@ async function main() {
 async function checkUser(x) {
     const document = await users.findOne({username: x});
     if(document){
-        return document.password;
+        return document;
     } else {
         return null;
     }
@@ -145,15 +146,22 @@ app.get('/score', (req,res,next) =>{
 //Middleware for logging in user x with password z
 app.post('/user', (req, res, next) => {
     const username = req.body.username;
-    const pass = checkUser(username);
-    if(pass === null){
+    const user = checkUser(username);
+    if(user === null){
         res.status(404).send();
-    } else if (pass === req.body.password){
+    } else {
+        let logPass = user.salt + req.body.password;
+        logPass = hashFunc(logpass);
+        if (user.password === logpass){
         const authToken = tokenGenerator(username);
         res.status(200).send({token: authToken});
     } else {
         res.status(401).send();
     }
+}
+async function hashFunc(saltPass){
+    return await bcrypt.hash(saltPass, 10);
+}
 });
 //middleware for checking if a authtoken is valid
 app.get('/user', (req, res, next) => {
@@ -167,7 +175,7 @@ app.get('/user', (req, res, next) => {
 });
 function tokenGenerator(username){
     const uuid = String(crypto.randomUUID());
-    tokens.push({username: username, token: uuid});
+    tokens.insertOne({username: username, token: uuid});
     return uuid;
 }
 const port = 4000;
