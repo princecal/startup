@@ -95,8 +95,8 @@ app.post('/register', async (req, res, next) => {
   });
 //Middleware for submitting x users review score of game y
 app.post('/score', async (req, res, next) => {
-    const token = req.body.token;
-    const name = checkAuth(token);
+    const token = req?.cookies.token;
+    const name = await checkAuth(token);
     if (name != null){
         const gameID = Number(req.body.gameID);
         const score = Number(req.body.score);
@@ -112,7 +112,7 @@ app.post('/score', async (req, res, next) => {
 });
 //Middleware for updating x users review score of game y
 app.put('/score', async (req, res, next) => {
-    const token = req.body.token;
+    const token = req?.cookies.token;
     const name = await checkAuth(token);
     if (name != null){
         const gameID = Number(req.body.gameID);
@@ -167,8 +167,7 @@ app.post('/user', async (req, res, next) => {
         res.status(404).send();
     } else {
         let logPass = user.salt + req.body.password;
-        logPass = await hashFunc(logPass);
-        if (user.password === logPass){
+        if (await bcrypt.compare(logPass, user.password)){  
         const authToken = tokenGenerator(username);
         res.cookie('token',authToken, {
             secure: true,

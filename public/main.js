@@ -5,11 +5,12 @@ async function submitReview(){
     if(user != null){
         try{
          if(await getReview(user,game)){
-            url = '/score';
+            const url = '/score';
             const response = await fetch(url, {
               method: 'PUT',
               headers: {'content-type': 'application/json'},
-              body: JSON.stringify({"token": localStorage.getItem("authToken"), "gameID": game, "score": score}),
+              credentials: 'include',
+              body: JSON.stringify({"gameID": game, "score": score}),
             });
             if(response.status === 200){
                 changeScore(game);
@@ -18,11 +19,12 @@ async function submitReview(){
                 showMessage("An error has occured.",'r');
             }
          } else {
-            url = '/score';
+            const url = '/score';
             const response = await fetch(url, {
               method: 'POST',
               headers: {'content-type': 'application/json'},
-              body: JSON.stringify({"token": localStorage.getItem("authToken"), "gameID": game, "score": score}),
+              credentials: 'include',
+              body: JSON.stringify({"gameID": game, "score": score}),
             });
             if(response.status === 200){
                 changeScore(game);
@@ -41,7 +43,7 @@ async function submitReview(){
 }
 async function getReview(user,game){
     try {
-        url = '/score?username=' + user + '&gameID=' + game;
+        const url = '/score?username=' + user + '&gameID=' + game;
         const response = await fetch(url, {
           method: 'GET',
         });
@@ -68,7 +70,7 @@ async function run(){
 }
 async function getUser(){
     try {
-        url = '/user';
+        const url = '/user';
         const response = await fetch(url, {
           method: 'GET',
           headers: {'content-type': 'application/json'},
@@ -86,7 +88,7 @@ async function getUser(){
 }
 async function changeScore(game){
     try {
-        url = '/review?gameID=' + game;
+        const url = '/review?gameID=' + game;
         const response = await fetch(url, {
           method: 'GET',
           headers: {'content-type': 'application/json'},
@@ -117,14 +119,13 @@ async function login(){
         showMessage(x,'r');
     } else {
         try{
-            url = '/user';
+            const url = '/user';
                 const response = await fetch(url, {
                   method: 'POST',
                   headers: {'content-type': 'application/json'},
                   body: JSON.stringify({username: username, password: password}),
                 });
                 if(response.status === 200){
-                    const res = await response.json();
                     showMessage("Login Successful",'g');
                     showLogout(username);
                 } else if(response.status === 404) {
@@ -167,7 +168,7 @@ async function register(){
         showMessage(x,'r');
     } else {
         try{
-        url = '/register';
+        const url = '/register';
             const response = await fetch(url, {
               method: 'POST',
               headers: {'content-type': 'application/json'},
@@ -217,7 +218,7 @@ function showMessage(x,y){
 }
 async function logout(){
     //Logs out user, deletes auth token
-    url = '/user';
+    const url = '/user';
         const response = await fetch(url, {
           method: 'DELETE',
     });
