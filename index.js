@@ -102,16 +102,17 @@ app.post('/score', async (req, res, next) => {
     }
 });
 //Middleware for updating x users review score of game y
-app.put('/score', (req, res, next) => {
+app.put('/score', async (req, res, next) => {
     const token = req.body.token;
-    const name = checkAuth(token);
+    const name = await checkAuth(token);
     if (name != null){
         const gameID = Number(req.body.gameID);
         const score = Number(req.body.score);
-        let review = checkReview(name,gameID);
+        let review = await checkReview(name,gameID);
         const totalScore = score - review.score;
-        review.score += totalScore;
-        let game = checkGame(gameID);
+        const finalScore = review.score + totalScore;
+        reviews.updateOne({gameID: gameID, username: name},{$set: {score: finalScore}})
+        let game = await checkGame(gameID);
         game.totalScore += totalScore;
         res.status(200).send();
     } else {
@@ -135,31 +136,31 @@ app.delete('/user', async (req, res, next) => {
     }
 });
 //Middleware for getting number of reviews and total score of game y
-app.get('/review', (req, res, next) => {
+app.get('/review', async (req, res, next) => {
     const gameID = Number(req.query.gameID);
-    let game = checkGame(gameID);
+    let game = await checkGame(gameID);
     res.status(200).send({numReviews: game.numReviews, totalScore: game.totalScore});
 });
 //Middleware for checking if user has submitted review for submitted game
-app.get('/score', (req,res,next) =>{
+app.get('/score', async (req,res,next) =>{
     const gameID = Number(req.query.gameID);
     const username = req.query.username;
-    const review = checkReview(username,gameID);
+    const review = await checkReview(username,gameID);
     if(review != null){res.status(200).send();}
     else {res.status(404).send();}
 });
 //Middleware for logging in user x with password z
-app.post('/user', (req, res, next) => {
+app.post('/user', async (req, res, next) => {
     const username = req.body.username;
-    const user = checkUser(username);
+    const user = await checkUser(username);
     if(user === null){
         res.status(404).send();
     } else {
         let logPass = user.salt + req.body.password;
-        logPass = hashFunc(logpass);
+        logPass = await hashFunc(logpass);
         if (user.password === logpass){
         const authToken = tokenGenerator(username);
-        res.cookie('token', token, {
+        res.cookie('token',authToken, {
             secure: true,
             httpOnly: true,
             sameSite: 'strict',
@@ -175,9 +176,9 @@ async function hashFunc(saltPass){
 }
 });
 //middleware for checking if a authtoken is valid
-app.get('/user', (req, res, next) => {
+app.get('/user', async (req, res, next) => {
     const token = req?.cookies.token;
-    const name = checkAuth(token);
+    const name = await checkAuth(token);
     if(name != null){
         res.status(200).send(JSON.stringify({username: name}));
     } else {
