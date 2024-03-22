@@ -57,7 +57,7 @@ async function checkReview(x,y){
     }
 }
 async function checkAuth(w){
-    const document = await tokens.findOne({tokens: w});
+    const document = await tokens.findOne({token: w});
     if(document){
         return document.username;
     } else {
@@ -134,7 +134,7 @@ app.delete('/user', async (req, res, next) => {
     const token = req?.cookies.token;
     const name = await checkAuth(token);
     if(name != null){
-        tokens.remove({token: token});
+        tokens.findOneAndDelete({token: token});
         res.cookie('token', "", {
             secure: true,
             httpOnly: true,
@@ -167,24 +167,23 @@ app.post('/user', async (req, res, next) => {
         res.status(404).send();
     } else {
         let logPass = user.salt + req.body.password;
-        logPass = await hashFunc(logpass);
-        if (user.password === logpass){
+        logPass = await hashFunc(logPass);
+        if (user.password === logPass){
         const authToken = tokenGenerator(username);
         res.cookie('token',authToken, {
             secure: true,
             httpOnly: true,
             sameSite: 'strict',
           });
-         
         res.status(200).send();
     } else {
         res.status(401).send();
     }
 }
+});
 async function hashFunc(saltPass){
     return await bcrypt.hash(saltPass, 10);
 }
-});
 //middleware for checking if a authtoken is valid
 app.get('/user', async (req, res, next) => {
     const token = req?.cookies.token;

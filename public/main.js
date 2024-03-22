@@ -72,6 +72,7 @@ async function getUser(){
         const response = await fetch(url, {
           method: 'GET',
           headers: {'content-type': 'application/json'},
+          credentials: 'include',
         });
         const res = await response.json();
         if(response.status === 200){
@@ -164,8 +165,6 @@ async function register(){
     if(!username || !password){
         const x = "Either your Username or Password are not filled in. Please try again.";
         showMessage(x,'r');
-    } else if (localStorage.getItem(username) != null) {
-        showMessage("Username already in use. Please try again with a different username.",'r');
     } else {
         try{
         url = '/register';
@@ -175,7 +174,6 @@ async function register(){
               body: JSON.stringify({username: username, password: password}),
             });
             if(response.status === 200){
-                const res = await response.json();
                 showMessage("Login Successful",'g');
                 showLogout(username);
             } else {
