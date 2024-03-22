@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const config = require('./dbConfig.json');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
+const { MongoClient } = require('mongodb');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
 const db = client.db('gameReviews');
@@ -64,7 +65,7 @@ async function checkAuth(w){
     }
 }
 async function checkGame(y){
-    const document = await users.findOne({gameID: y});
+    const document = await games.findOne({gameID: y});
     if(document){
         return document;
     } else {

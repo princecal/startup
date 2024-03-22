@@ -62,7 +62,7 @@ async function run(){
             showLogout(user);
         }
     for(let i = 1; i < 5; i++){
-        changeScore(i);
+        await changeScore(i);
     }
     quote();
 }
