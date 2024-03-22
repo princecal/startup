@@ -72,14 +72,22 @@ async function checkGame(y){
     }
 }
 //Middleware for registering x user with password z
-app.post('/register', (req, res, next) => {
+app.post('/register', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-    //return authtoken if succesful, error if fail
-    if(checkUser(username) === null){
-        users.push({username: username, password: password});
+    if(await checkUser(username) === null){
+        //FIXME Salt generation
+        const salt = await bcrypt.genSalt(10);
+        let hashedPassword = salt + password;
+        hashedPassword = await hashFunc(hashedPassword);
+        users.insertOne({username: username, password: hashedPassword, salt: salt});
         const authToken = tokenGenerator(username);
-        res.status(200).send(JSON.stringify({token: authToken}));
+        res.cookie('token', authToken, {
+            secure: true,
+            httpOnly: true,
+            sameSite: 'strict',
+          });
+        res.status(200).send();
     }else {
         res.status(401).send();
     }
@@ -92,10 +100,10 @@ app.post('/score', async (req, res, next) => {
         const gameID = Number(req.body.gameID);
         const score = Number(req.body.score);
         reviews.insertOne({username: name, gameID: gameID, score: score});
-        let game = checkGame(gameID);
+        let game = await checkGame(gameID);
         const totalScore = game.totalScore + score;
         const numReviews = game.numReviews + 1;
-        games.updateOne({gameID: gameID}, {$set: {gameID: gameID, totalScore: totalScore, numReviews: numReviews}});
+        games.updateOne({gameID: gameID}, {$set: {totalScore: totalScore, numReviews: numReviews}});
         res.status(200).send();
     } else {
         res.status(401).send();
@@ -113,7 +121,8 @@ app.put('/score', async (req, res, next) => {
         const finalScore = review.score + totalScore;
         reviews.updateOne({gameID: gameID, username: name},{$set: {score: finalScore}})
         let game = await checkGame(gameID);
-        game.totalScore += totalScore;
+        const gameScore = totalScore + game.totalScore;
+        games.updateOne({gameID: gameID},{$set: {totalScore: gameScore}})
         res.status(200).send();
     } else {
         res.status(401).send();
