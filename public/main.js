@@ -1,7 +1,7 @@
 async function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
-    const user = await getUser(localStorage.getItem("authToken"));
+    const user = await getUser();
     if(user != null){
         try{
          if(await getReview(user,game)){
@@ -56,20 +56,19 @@ async function getReview(user,game){
 }
 
 async function run(){
-    if(localStorage.getItem("authToken") != null){
-        const user = await getUser(localStorage.getItem("authToken"));
+    
+        const user = await getUser();
         if (user != null){
             showLogout(user);
         }
-    }
     for(let i = 1; i < 5; i++){
         changeScore(i);
     }
     quote();
 }
-async function getUser(token){
+async function getUser(){
     try {
-        url = '/user?token=' + token;
+        url = '/user';
         const response = await fetch(url, {
           method: 'GET',
           headers: {'content-type': 'application/json'},
@@ -125,7 +124,6 @@ async function login(){
                 });
                 if(response.status === 200){
                     const res = await response.json();
-                    localStorage.setItem("authToken", res.token);
                     showMessage("Login Successful",'g');
                     showLogout(username);
                 } else if(response.status === 404) {
@@ -178,7 +176,6 @@ async function register(){
             });
             if(response.status === 200){
                 const res = await response.json();
-                localStorage.setItem("authToken", res.token);
                 showMessage("Login Successful",'g');
                 showLogout(username);
             } else {
@@ -222,13 +219,11 @@ function showMessage(x,y){
 }
 async function logout(){
     //Logs out user, deletes auth token
-    const token = localStorage.getItem("authToken");
-    url = '/user?token=' + token;
+    url = '/user';
         const response = await fetch(url, {
           method: 'DELETE',
     });
     if(response.ok = true){
-        localStorage.removeItem("authToken");
         showMessage("Logout Successful",'g')
         hideLogout();
     } else {

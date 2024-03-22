@@ -124,6 +124,11 @@ app.delete('/user', async (req, res, next) => {
     const name = await checkAuth(token);
     if(name != null){
         tokens.remove({token: token});
+        res.cookie('token', "", {
+            secure: true,
+            httpOnly: true,
+            sameSite: 'strict',
+          });
         res.status(200).send();
     } else {
         res.status(404).send();
