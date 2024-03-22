@@ -236,6 +236,6 @@ async function quote(){
     const array = res.amiibo;
     const index = Math.floor(Math.random() * array.length)
     const amiibo = array[index];
-    const text = "Random Amiibo Selection: " + amiibo.name + " from the " + amiibo.amiiboSeries + " series, which was released on " + amiibo.release.na;
+    const text = "Random Amiibo Selection: " + amiibo.name + " from the " + amiibo.amiiboSeries + " amiibo series, which was released on " + amiibo.release.na;
     document.getElementById("api").textContent = text;
 }
