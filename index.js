@@ -154,7 +154,13 @@ app.post('/user', (req, res, next) => {
         logPass = hashFunc(logpass);
         if (user.password === logpass){
         const authToken = tokenGenerator(username);
-        res.status(200).send({token: authToken});
+        res.cookie('token', token, {
+            secure: true,
+            httpOnly: true,
+            sameSite: 'strict',
+          });
+         
+        res.status(200).send();
     } else {
         res.status(401).send();
     }
