@@ -72,3 +72,17 @@ For this deliverable, I added Services and API interactions to my application.
 **Third Party Service Call** - Complete  
 **Backend Provides Service Endpoints** - Complete  
 **Frontend Calls Service Endpoints** - Complete  
+
+## Login Deliverable  
+For this deliverable, I added Services and API interactions to my application.  
+### Prerequisites  
+**Simon Login** - Complete  
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete  
+### JavaScript Requirements  
+**New User Registration** - New users have their information securely secured in Mongo, and then are given an authToken as a cookie.  
+**Existing User Authentication** - Existing users can log in, and their password is salted and hashed with the same algorithm as it was originally, on match they are assigned a new authToken as a cookie.  
+**Application Data in MongoDB** - Review data and game data are stored in Mongo, and new entries are entered or updated as necessary.  
+**Credentials in MongoDB** - Credentials are salted, hashed, and then stored in MongoDB. On login, passwords are compared to   
+**Restricts Functionality based on Authentication** - Application does not let you submit a review without a valid authToken.  
