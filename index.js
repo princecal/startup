@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const { MongoClient } = require('mongodb');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
+const { WebSocketServer } = require('ws');
+const wss = new WebSocketServer({ port: 9900 });
 const db = client.db('gameReviews');
 const users = db.collection('users');
 const tokens = db.collection('tokens');
@@ -199,7 +201,8 @@ function tokenGenerator(username){
     return uuid;
 }
 const port = 4000;
-app.listen(port, function () {
+const server = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+
 main().catch(console.error);
