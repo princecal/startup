@@ -15,6 +15,13 @@ async function submitReview(){
             if(response.status === 200){
                 changeScore(game);
                 showMessage("Your score has been updated.",'n');
+                const toCast = {
+                    username: user,
+                    gameID: game,
+                    score: score,
+                    type: "update",
+                }
+                broadcast(toCast);
             } else {
                 showMessage("An error has occured.",'r');
             }
@@ -29,6 +36,13 @@ async function submitReview(){
             if(response.status === 200){
                 changeScore(game);
                 showMessage("Your review has been submitted.",'n');
+                const toCast = {
+                    username: user,
+                    gameID: game,
+                    score: score,
+                    type: "submit",
+                }
+                broadcast(toCast);
             } else {
                 showMessage("An error has occured.",'r');
             }
@@ -238,4 +252,7 @@ async function quote(){
     const amiibo = array[index];
     const text = "Random Amiibo Selection: " + amiibo.name + " from the " + amiibo.amiiboSeries + " amiibo series, which was released on " + amiibo.release.na;
     document.getElementById("api").textContent = text;
+}
+async function broadcast(toCast){
+    
 }
