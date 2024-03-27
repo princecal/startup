@@ -204,9 +204,15 @@ const port = 4000;
 const server = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+await main().catch(console.error);
 server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, function done(ws) {
       wss.emit('connection', ws, request);
     });
   });
-main().catch(console.error);
+  let connections = [];
+  wss.on('connection', (ws) => {
+    const connection = { id: crypto.randomUUID, alive: true, ws: ws };
+    connections.push(connection);
+
+  });
