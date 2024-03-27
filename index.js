@@ -204,5 +204,9 @@ const port = 4000;
 const server = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
-
+server.on('upgrade', (request, socket, head) => {
+    wss.handleUpgrade(request, socket, head, function done(ws) {
+      wss.emit('connection', ws, request);
+    });
+  });
 main().catch(console.error);
