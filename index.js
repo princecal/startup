@@ -227,4 +227,17 @@ server.on('upgrade', (request, socket, head) => {
           connections.splice(index, 1);
         }
       });
+      ws.on('pong', () => {
+        connection.alive = true;
+      });
   });
+  setInterval(() => {
+    connections.forEach((conn) => {
+        if(conn.alive){
+            conn.alive = false;
+            conn.ws.ping();
+        } else {
+            conn.ws.terminate();
+        }
+    });
+  },10000);
