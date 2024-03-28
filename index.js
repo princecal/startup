@@ -214,5 +214,11 @@ server.on('upgrade', (request, socket, head) => {
   wss.on('connection', (ws) => {
     const connection = { id: crypto.randomUUID, alive: true, ws: ws };
     connections.push(connection);
-
+    ws.on('message', function message(data) {
+        connections.forEach((conn) => {
+          if (conn.id != connection.id) {
+            conn.ws.send(data);
+          }
+        });
+      });
   });
