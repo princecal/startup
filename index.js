@@ -221,4 +221,10 @@ server.on('upgrade', (request, socket, head) => {
           }
         });
       });
+      ws.on('close', () => {
+        const index = connections.findIndex((toClose) => toClose.id === connection.id);
+        if (index >= 0) {
+          connections.splice(index, 1);
+        }
+      });
   });
