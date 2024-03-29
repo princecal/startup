@@ -270,13 +270,15 @@ async function createSocket(){
         try{
         const fromWS = JSON.parse(await message.data.text());
         const url = '/game?gameID=' + fromWS.gameID;
-        const res = await response.json();
         const response = await fetch(url);
+        const res = await response.json();
         if(fromWS.type === "submit"){
-            const toShow = "User " + fromWS.name + " has submitted a review for " + res.gameName + " with a score of " + fromWS.score + "/10";
+            const toShow = "User " + fromWS.username + " has submitted a review for " + res.gameName + " with a score of " + fromWS.score + "/10";
+            changeScore(fromWS.gameID);
             showMessage(toShow,'n');
         } else if (fromWS.type === "update"){
-            const toShow = "User " + fromWS.name + " has updated their review for " + res.gameName + " with a score of " + fromWS.score + "/10";
+            const toShow = "User " + fromWS.username + " has updated their review for " + res.gameName + " with a score of " + fromWS.score + "/10";
+            changeScore(fromWS.gameID);
             showMessage(toShow,'n');
         }
     } catch (e){

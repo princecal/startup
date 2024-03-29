@@ -164,9 +164,8 @@ app.get('/score', async (req,res,next) =>{
 app.get('/game', async (req,res,next) =>{
     const gameID = Number(req.query.gameID);
     const game = await checkGame(gameID);
-
-    if(game != null){res.status(200).send();}
-    else {res.status(404).send({gameName: game.name});}
+    if(game != null){res.status(200).send({gameName: game.name});}
+    else {res.status(404).send();}
 });
 //Middleware for logging in user x with password z
 app.post('/user', async (req, res, next) => {
@@ -211,7 +210,7 @@ const port = 4000;
 const server = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
-await main().catch(console.error);
+main().catch(console.error);
 server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, function done(ws) {
       wss.emit('connection', ws, request);
@@ -219,7 +218,7 @@ server.on('upgrade', (request, socket, head) => {
   });
   let connections = [];
   wss.on('connection', (ws) => {
-    const connection = { id: crypto.randomUUID, alive: true, ws: ws };
+    const connection = { id: crypto.randomUUID(), alive: true, ws: ws };
     connections.push(connection);
     ws.on('message', function message(data) {
         connections.forEach((conn) => {
@@ -236,6 +235,7 @@ server.on('upgrade', (request, socket, head) => {
       });
       ws.on('pong', () => {
         connection.alive = true;
+        console.log("ping" + connection.id);
       });
   });
   setInterval(() => {
