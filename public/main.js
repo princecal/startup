@@ -263,4 +263,7 @@ async function createSocket(){
     socket.onopen = (event) => {
         showMessage("Connected to server",'g');
     };
+    socket.onclose = (event) => {
+        showMessage("Disconnected from server, please reload the page",'r');
+    };
 }
