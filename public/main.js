@@ -1,5 +1,4 @@
-const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+let socket;
 async function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
@@ -259,5 +258,9 @@ async function broadcast(toCast){
     socket.send(JSON.stringify(toCast));
 }
 async function createSocket(){
-
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+        showMessage("Connected to server",'g');
+    };
 }
