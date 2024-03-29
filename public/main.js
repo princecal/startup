@@ -73,11 +73,11 @@ async function getReview(user,game){
 }
 
 async function run(){
-    
-        const user = await getUser();
-        if (user != null){
-            showLogout(user);
-        }
+    createSocket();
+    const user = await getUser();
+    if (user != null){
+         showLogout(user);
+    }
     for(let i = 1; i < 5; i++){
         await changeScore(i);
     }
@@ -266,4 +266,21 @@ async function createSocket(){
     socket.onclose = (event) => {
         showMessage("Disconnected from server, please reload the page",'r');
     };
+    socket.onmessage = async (message) => {
+        try{
+        const fromWS = JSON.parse(await message.data.text());
+        const url = '/game?gameID=' + fromWS.gameID;
+        const res = await response.json();
+        const response = await fetch(url);
+        if(fromWS.type === "submit"){
+            const toShow = "User " + fromWS.name + " has submitted a review for " + res.gameName + " with a score of " + fromWS.score + "/10";
+            showMessage(toShow,'n');
+        } else if (fromWS.type === "update"){
+            const toShow = "User " + fromWS.name + " has updated their review for " + res.gameName + " with a score of " + fromWS.score + "/10";
+            showMessage(toShow,'n');
+        }
+    } catch (e){
+        console.log("websocket game name error");
+    }
+    }
 }
