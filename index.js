@@ -160,6 +160,13 @@ app.get('/score', async (req,res,next) =>{
     const review = await checkReview(username,gameID);
     if(review != null){res.status(200).send();}
     else {res.status(404).send();}
+}); 
+app.get('/game', async (req,res,next) =>{
+    const gameID = Number(req.query.gameID);
+    const game = await checkGame(gameID);
+
+    if(game != null){res.status(200).send();}
+    else {res.status(404).send({gameName: game.name});}
 });
 //Middleware for logging in user x with password z
 app.post('/user', async (req, res, next) => {
