@@ -1,3 +1,5 @@
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 async function submitReview(){
     const game = document.getElementById("gameSelect").selectedIndex + 1;
     const score = document.getElementById("scoreSelect").selectedIndex;
@@ -254,5 +256,8 @@ async function quote(){
     document.getElementById("api").textContent = text;
 }
 async function broadcast(toCast){
-    
+
+}
+async function createSocket(){
+
 }
