@@ -256,7 +256,7 @@ async function quote(){
     document.getElementById("api").textContent = text;
 }
 async function broadcast(toCast){
-
+    socket.send(JSON.stringify(toCast));
 }
 async function createSocket(){
 
