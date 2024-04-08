@@ -162,6 +162,10 @@ function showLogout(x){
     document.getElementById("login").hidden = true;
     document.getElementById("register").hidden = true;
     document.getElementById("logout").hidden = false;
+    document.getElementById("review").disabled = false;
+    document.getElementById("review").classList.remove("btn-danger");
+    document.getElementById("review").classList.add("btn-primary");
+    document.getElementById("review").textContent = "Submit";
 }
 function hideLogout(){
     document.getElementById("welcome").textContent = "Welcome Guest!";
@@ -172,6 +176,10 @@ function hideLogout(){
     document.getElementById("login").hidden = false;
     document.getElementById("register").hidden = false;
     document.getElementById("logout").hidden = true;
+    document.getElementById("review").disabled = true;
+    document.getElementById("review").classList.remove("btn-primary");
+    document.getElementById("review").classList.add("btn-danger");
+    document.getElementById("review").textContent = "Disabled";
 }
 async function register(){
     const username = document.getElementById("username").value;
