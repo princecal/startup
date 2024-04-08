@@ -84,5 +84,18 @@ For this deliverable, I added Services and API interactions to my application.
 **New User Registration** - New users have their information securely secured in Mongo, and then are given an authToken as a cookie.  
 **Existing User Authentication** - Existing users can log in, and their password is salted and hashed with the same algorithm as it was originally, on match they are assigned a new authToken as a cookie.  
 **Application Data in MongoDB** - Review data and game data are stored in Mongo, and new entries are entered or updated as necessary.  
-**Credentials in MongoDB** - Credentials are salted, hashed, and then stored in MongoDB. On login, passwords are compared to   
+**Credentials in MongoDB** - Credentials are salted, hashed, and then stored in MongoDB. On login, passwords are compared using bcrypt   
 **Restricts Functionality based on Authentication** - Application does not let you submit a review without a valid authToken.  
+
+## Websocket Deliverable  
+For this deliverable, I added WebSocket interaction to my application.  
+### Prerequisites  
+**Simon Websocket** - Complete  
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete  
+### JavaScript Requirements  
+**Backend listens for WebSocket connection** - The server is listening for any upgrade, message, or pong messages and uses an appropriate function to handle each.  
+**Frontend makes WebSocket connection** - Upon opening the page, the frontend makes a connection to the server using WebSocket.  
+**Data sent over WebSocket connection** - Upon making a successful review, data is sent out to all other active users letting them know that a review has been made.  
+**WebSocket data displayed in the application interface** - Messages broadcasted through WebSocket are displayed on the left column.   
