@@ -1,4 +1,4 @@
-node_modules
-package.json
-package-lock.json
-dbConfig.json
+services/node_modules
+services/package.json
+services/package-lock.json
+services/dbConfig.json
