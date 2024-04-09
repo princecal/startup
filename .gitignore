@@ -2,3 +2,6 @@ services/node_modules
 services/package.json
 services/package-lock.json
 services/dbConfig.json
+package-lock.json
+package.json
+node_modules
