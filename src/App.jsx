@@ -1,16 +1,7 @@
-<html>
-    <head>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="style.css">
-        <title>Simplified Game Reviews</title>
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src = "main.js"></script>
-    </head>
-  <body onload = "run()">
+function App(){
+
+return (
+  <><body onload = "run()">
     <header><h1>Welcome to Simplified Game Reviews!</h1></header>
   <main>
     <div className = "row">
@@ -81,18 +72,18 @@
         <div className = "right column">
             <h2 id = "welcome">Welcome Guest!</h2>
             <p>
-                <label id = "userLabel" for="username">Username: </label>
-                <input type="username" id="username" placeholder="Enter Username">
+                <label id = "userLabel" for="username">Username:</label> 
+                <input type="username" id="username" placeholder="Enter Username"/>
             </p>
             <p>
-                <label id = "passLabel" for="password">Password: </label>
-                <input type="password" id="password" placeholder="Enter Password">
+                <label id = "passLabel" for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter Password"/>
             </p>
             <div className = "rowButton">
                 <button id = "login" type="submit" className ="btn btn-primary column button" onclick="login()">Login</button>
                 <button id = "register" type="submit" className = "btn btn-danger column button" onclick="register()">Register</button>
             </div>
-            <button hidden = true id = "logout" type="submit" className = "btn btn-danger column button" onclick="logout()">Logout</button>
+            <button hidden = {true} id = "logout" type="submit" className = "btn btn-danger column button" onclick="logout()">Logout</button>
     
         </div>
     </div>
@@ -105,5 +96,6 @@
     </div>
 </footer>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script></>
+);}
+export default App;
