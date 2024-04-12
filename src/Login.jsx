@@ -9,6 +9,6 @@ return(<><h2 id = "welcome">Welcome Guest!</h2>
     <input type="password" id="password" placeholder="Enter Password"/>
 </p>
 <div className = "rowButton">
-    <button id = "login" type="submit" className ="btn btn-primary column button" onclick="login()">Login</button>
-    <button id = "register" type="submit" className = "btn btn-danger column button" onclick="register()">Register</button>
+    <button id = "login" type="submit" className ="btn btn-primary column button" onClick={login()}>Login</button>
+    <button id = "register" type="submit" className = "btn btn-danger column button" onClick={register()}>Register</button>
 </div></>);
