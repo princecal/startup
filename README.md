@@ -99,3 +99,16 @@ For this deliverable, I added WebSocket interaction to my application.
 **Frontend makes WebSocket connection** - Upon opening the page, the frontend makes a connection to the server using WebSocket.  
 **Data sent over WebSocket connection** - Upon making a successful review, data is sent out to all other active users letting them know that a review has been made.  
 **WebSocket data displayed in the application interface** - Messages broadcasted through WebSocket are displayed on the left column.   
+
+## React Deliverable  
+For this deliverable, I added React to my application.  
+### Prerequisites  
+**Simon React** - Complete  
+**Github Link** - Complete  
+**Readme Update** - Complete  
+**Git Commits** - Complete  
+### JavaScript Requirements  
+**Bundled using Vite** - Complete!  
+**Multiple functional react components** - Not done  
+**React router** - Not done  
+**React hooks** - Not done  
